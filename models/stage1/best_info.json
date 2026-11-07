@@ -1,0 +1,34 @@
+{
+  "run": "E1",
+  "source": "/home/bunleab/face_yolov/models/stage1/E1_best.pt",
+  "frozen_copy": "/home/bunleab/face_yolov/models/stage1/best.pt",
+  "imgsz": 416,
+  "selection": {
+    "criterion": "validation mAP50-95, cost tie-break within 0.005",
+    "validation_map50_95": 0.7424279858742051,
+    "validation_map50": 0.9904898037706809,
+    "peak_gpu_gib": 0.415,
+    "latency_ms_mean": 2.557153473724994
+  },
+  "test_metrics": {
+    "metrics/precision(B)": 0.9992531581584876,
+    "metrics/recall(B)": 1.0,
+    "metrics/mAP50(B)": 0.995,
+    "metrics/mAP50-95(B)": 0.6541312913320605,
+    "fitness": 0.6541312913320605
+  },
+  "recall_by_size": {
+    "large": {
+      "gt": 113,
+      "tp": 111,
+      "recall": 0.9823008849557522
+    },
+    "medium": {
+      "gt": 1,
+      "tp": 1,
+      "recall": 1.0
+    }
+  },
+  "selected_at": "2026-11-07T18:02:37",
+  "ood_available": false
+}

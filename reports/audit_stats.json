@@ -1,0 +1,64 @@
+{
+  "generated": "2026-11-07T16:34:40",
+  "dataset": "/home/bunleab/face_yolov/Face-Detection.v2-datasetv2.yolov8",
+  "files": 2173,
+  "split_images": {
+    "train": 1862,
+    "valid": 185,
+    "test": 126
+  },
+  "split_boxes": {
+    "train": 1878,
+    "valid": 185,
+    "test": 126
+  },
+  "split_bad_lines": {
+    "train": 0,
+    "valid": 0,
+    "test": 0
+  },
+  "split_empty_labels": {},
+  "unique_sources": 1242,
+  "source_splits": {
+    "train": 931,
+    "valid": 185,
+    "test": 126
+  },
+  "boxes": 2189,
+  "classes": {
+    "0": 2189
+  },
+  "image_dimensions": {
+    "416x416": 2173
+  },
+  "modes": {
+    "RGB": 2173
+  },
+  "grayscale_content": 2173,
+  "corrupt_images": [],
+  "border_boxes": 295,
+  "face_area": {
+    "min": 0.004225510817307692,
+    "p1": 0.05171378051035503,
+    "p5": 0.169189453125,
+    "median": 0.4292021079881657,
+    "p95": 0.7530718380177513,
+    "max": 1.0
+  },
+  "coco_sizes_at_416": {
+    "small_lt_1024": 4,
+    "medium_1024_9216": 20,
+    "large_ge_9216": 2165
+  },
+  "exact_cross_split_duplicates": 0,
+  "near_duplicate_clusters": 87,
+  "near_duplicate_images": 194,
+  "near_duplicate_clusters_spanning_splits": 40,
+  "contaminated": {
+    "valid": 19,
+    "test": 21
+  },
+  "unique_clusters": 1135,
+  "augmentation_pairs_train": 931,
+  "augmentation_noise_diff_median": 0.004356971153846154
+}

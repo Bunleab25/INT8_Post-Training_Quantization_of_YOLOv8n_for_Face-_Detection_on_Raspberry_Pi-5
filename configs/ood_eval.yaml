@@ -1,0 +1,6 @@
+path: /home/bunleab/face_yolov/data/ood
+train: images
+val: images
+test: images
+nc: 1
+names: ['Face']

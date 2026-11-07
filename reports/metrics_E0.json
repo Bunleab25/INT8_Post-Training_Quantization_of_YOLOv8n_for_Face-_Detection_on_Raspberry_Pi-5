@@ -1,0 +1,39 @@
+{
+  "name": "E0",
+  "generated": "2026-11-07T18:01:24",
+  "weights": "/home/bunleab/face_yolov/models/stage1/E0_best.pt",
+  "data": "/home/bunleab/face_yolov/configs/face_v2_dedup.yaml",
+  "split": "test",
+  "imgsz": 640,
+  "conf": 0.25,
+  "iou": 0.5,
+  "ultralytics_val": {
+    "metrics/precision(B)": 0.9904585126450762,
+    "metrics/recall(B)": 0.9912280701754386,
+    "metrics/mAP50(B)": 0.9884210526315792,
+    "metrics/mAP50-95(B)": 0.6377151288973446,
+    "fitness": 0.6377151288973446
+  },
+  "overall": {
+    "gt": 114,
+    "matched": 113,
+    "recall": 0.9912280701754386,
+    "predictions": 115,
+    "images": 114
+  },
+  "recall_by_size": {
+    "large": {
+      "gt": 113,
+      "tp": 112,
+      "recall": 0.9911504424778761
+    },
+    "medium": {
+      "gt": 1,
+      "tp": 1,
+      "recall": 1.0
+    }
+  },
+  "latency_ms_mean": 4.834017508823819,
+  "latency_ms_p95": 4.858413450074295,
+  "images_with_no_tp_and_no_pred": 0
+}

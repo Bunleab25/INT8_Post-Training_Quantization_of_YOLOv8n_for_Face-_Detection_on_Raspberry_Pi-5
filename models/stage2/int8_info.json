@@ -1,0 +1,22 @@
+{
+  "experiment": "Q0",
+  "generated": "2026-11-07T19:11:36",
+  "runtime": "onnxruntime",
+  "onnx": "/home/bunleab/face_yolov/exports/stage2/onnxruntime/best.onnx",
+  "engine": null,
+  "quantized_model": "/home/bunleab/face_yolov/models/stage2/int8.onnx",
+  "model_sha256": "d3c4c9de7bcd86c8652a98543a5635b4654a5dbe0b0104dc8a6ae28a4e1a2afd",
+  "calibration_manifest": "/home/bunleab/face_yolov/calibration/images.json",
+  "calibration_count": 300,
+  "imgsz": 416,
+  "quantization": {
+    "calibrator": "onnxruntime_static_QDQ_MinMax_ConvOnly",
+    "calibration_images": 300,
+    "imgsz": 416,
+    "format": "onnx",
+    "per_channel": false,
+    "op_types_to_quantize": [
+      "Conv"
+    ]
+  }
+}

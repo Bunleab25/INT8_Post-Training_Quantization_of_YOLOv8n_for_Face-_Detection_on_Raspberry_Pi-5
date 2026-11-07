@@ -1,0 +1,1809 @@
+{
+  "generated": "2026-11-07T18:48:59",
+  "seed": 42,
+  "requested_count": 300,
+  "actual_count": 300,
+  "dataset": "/home/bunleab/face_yolov/datasets/face_v2_dedup",
+  "images": [
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-172-_jpg.rf.a7c97d2fae853723a5042d5a25784328.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-172-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-650-_jpg.rf.7adf7942649ad2cdb6a5c7220a351de2.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-650-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-169-_jpg.rf.c9caa376086470b022a4993eff0503c3.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-169-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-65-_png.rf.58f59e9974e89b3a71bb9979d9663f22.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-65-_png"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6590-_jpg.rf.c7812ede71fcf3975aef204c170bea1e.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6590-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-944-_jpg.rf.bf4f48d55b5e1e08458b006171b7c9b6.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-944-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-651-_jpg.rf.537f1db84661a471c9b6ab7dd0f70947.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-651-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6719-_jpg.rf.46959b893e6bf38247a3e47f1189d17d.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6719-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-294-_jpg.rf.1fad2ebd2a007f9591a5c543fea119a2.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-294-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6516-_jpg.rf.f1517267b86ef55812d150ae0eb4fcdb.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6516-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6623-_jpg.rf.19c556955069e8aa26f01d8e4b93a53a.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6623-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6725-_jpg.rf.7dd11aebd11b85a5d918fdad6917f4f1.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6725-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6667-_jpg.rf.3050f66a62dee95093380eb671a7aec7.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6667-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-849-_jpg.rf.4c70e48546c886b66723468f14ca7ce9.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-849-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-73-_jpg.rf.a2a88c7071950a0130725fe5f8289d80.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-73-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-34-_jpeg.rf.9dc3cf925abc31494dec0d0e85c30f2a.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-34-_jpeg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6642-_jpg.rf.16b314372805665b5563ca2447d40579.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6642-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-144-_jpg.rf.f4eaf006f339ac3b531627d7d40fb7ac.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-144-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-739-_jpg.rf.ad2a6381ca74221a2d93d03149709dd3.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-739-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/test/images/1-6668-_jpg.rf.123786da3b25a1485c6d32b5d4419bd6.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6668-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-787-_jpg.rf.6de631fae766b4e533bef61dd1c581e3.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-787-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-770-_jpg.rf.be1c9a9334a5f2b10a0ff27c79e7c1c2.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-770-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/valid/images/1-948-_jpg.rf.bf4324c28bd345f34330b93bc7684c82.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-948-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6553-_jpg.rf.297109d94ff0cef707eedf213770f0ee.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6553-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/valid/images/1-28-_jpeg.rf.2919b0e2265cb26671aba68f3527f260.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-28-_jpeg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/test/images/1-6579-_jpg.rf.34586bb3ef31fc9c37f3448c3dc48e94.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6579-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-176-_jpg.rf.cd9c490cae7f7577acd8ecbdf88de3e4.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-176-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/test/images/1-6685-_jpg.rf.b0dc27aac33a4d67ad86971df6a92b21.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6685-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6630-_jpg.rf.11f72d6da3338310529e5c418a7e4dcf.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6630-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-252-_jpg.rf.e419f34a6466a0847c8ee48e42b86473.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-252-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-884-_jpg.rf.29ad07371cb8cb0d6b6006d05c12e317.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-884-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/valid/images/1-309-_jpg.rf.1f5a2e1a292080ca53b1bf7c4b843322.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-309-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-103-_png.rf.d9e8885c5baa91d5e185fb6cde8e7826.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-103-_png"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/valid/images/1-123-_jpg.rf.cea49a7df8368298b41e7cd2508676dc.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-123-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6834-_jpg.rf.add6004fedd5c7021309ba5d0fdb65f5.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6834-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-157-_jpg.rf.42ab6d47ddf2fbda4311109df982d80f.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-157-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/test/images/1-42-_jpg.rf.5e404305f64b18414c4397957437295b.jpg",
+      "split": "train",
+      "bucket": "medium",
+      "source": "1-42-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-106-_png.rf.4a85f0c928dda43479a85e048be6c89c.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-106-_png"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6476-_jpg.rf.537c5241088d65b7a3f33fe03db299ca.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6476-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/valid/images/1-686-_jpg.rf.cdfbfee6ce832b20284dd6242198d336.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-686-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6798-_jpg.rf.84c301ea502f7fa64ea9ba33fb92f552.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6798-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/valid/images/1-291-_jpg.rf.f1f2f59dabe79f38c18b744eacb13648.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-291-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-19-_jpg.rf.e1c11432ab1faed20f22a889310c97d2.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-19-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/test/images/1-6978-_jpg.rf.24dc2611327fc78e0a3a70282fa8c875.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6978-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-885-_jpg.rf.4b2da7aa5b1721dc2e263f68065a43ad.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-885-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-29-_png.rf.85dfa1f9a0a6383dc33123f004a2ea6b.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-29-_png"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-695-_jpg.rf.662b046f31d60f45da9153feec1b2c54.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-695-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6686-_jpg.rf.4a7aece044a3f7cd4d21dee8caff3a35.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6686-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-357-_jpg.rf.54c2aa6c3969baf8c0ee891ad6079840.jpg",
+      "split": "train",
+      "bucket": "medium",
+      "source": "1-357-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/valid/images/1-760-_jpg.rf.f072ca565bdd2bfd3b3f3a303ca9b0d4.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-760-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/test/images/1-6648-_jpg.rf.a8784bbe752139abeabbb4906f0698f4.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6648-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6520-_jpg.rf.4be2a9cf6ac7f0a77f19f5d8182db62e.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6520-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-736-_jpg.rf.4fe75de9c4edb946906339346b59fb71.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-736-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-62-_png.rf.00477aba71237ae7ab4b93f8a2c6e73a.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-62-_png"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-341-_jpg.rf.dac9f18857caf9e0aadf1105be2dcda2.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-341-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/test/images/1-960-_jpg.rf.5d5688ef1b5e6ba114b7dff5358a91f8.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-960-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6973-_jpg.rf.65b4dddeca4994dab4193cc930259a66.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6973-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6756-_jpg.rf.fcc9d7e2d49908e03b3669de2a4f3c2e.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6756-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6616-_jpg.rf.353b9131279536d358344d84c690890c.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6616-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6829-_jpg.rf.b730145509b2e2165045d40cd816eeaf.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6829-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/test/images/1-773-_jpg.rf.7f7660bbe0d534300c988c417bc4a547.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-773-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-824-_jpg.rf.5116ef1d14366a6d60a7c2ccf562c23f.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-824-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/test/images/1-6935-_jpg.rf.4c2942305cb9c8f71f38186ec5a33389.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6935-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-688-_jpg.rf.3794a578cd54f32969ca1c1ec928ebd4.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-688-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6522-_jpg.rf.c62c6f548d6430e90998a39413c00307.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6522-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6810-_jpg.rf.9365d6a2fdb5edf7d02c127df6bb1255.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6810-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/valid/images/1-785-_jpg.rf.078813b0e522c16b56236263fa9dd44d.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-785-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/test/images/1-6647-_jpg.rf.620d30183090cc139686c324880b1615.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6647-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/valid/images/1-311-_jpg.rf.a2c8bd93a4c3bf257aafe47b8079b251.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-311-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6555-_jpg.rf.93cbd086b955a0e8994ac6f4991b3ce0.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6555-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-122-_jpg.rf.b4f05ccfc21c5b7f89baa0976baa27a4.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-122-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6722-_jpg.rf.13d83085349826e8f688795cd085517e.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6722-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6587-_jpg.rf.07b18610cdc3e777d732a5685d1c355b.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6587-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-679-_jpg.rf.56ccb38653691e7b901eb9375e0aebf9.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-679-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-245-_jpg.rf.605ff8549f5123976bd24bbcd34269a3.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-245-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-924-_jpg.rf.43dd6ae8c11ed0434f9d5b5377f16fd5.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-924-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6739-_jpg.rf.5abb28b835749ec5d0577bf71516fb7d.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6739-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6940-_jpg.rf.ea7d05b60102b76b0e939290b162344a.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6940-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6875-_jpg.rf.7e311b02c8634c26055a237635750b47.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6875-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-806-_jpg.rf.bf7844dfb35367608752373b83f45063.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-806-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6506-_jpg.rf.7fb57ec2b32688632fdfcb3ba6e5f649.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6506-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/valid/images/1-332-_jpg.rf.5510ca5035560a24ac541501aaec6c2f.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-332-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6852-_jpg.rf.92a104b89f7a8cc94468f329a60a6af2.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6852-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6538-_jpg.rf.160f167b32c6b45605a833662194cd39.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6538-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/valid/images/1-6596-_jpg.rf.d19ee254b021fd1be8986080b5dcdf21.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6596-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-319-_jpg.rf.f8e9a51ceef6ace5f81ab708704aa770.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-319-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-673-_jpg.rf.db4df5e733f9b36f7915f1676d68d1d2.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-673-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/test/images/1-807-_jpg.rf.e21eddccddbd38e0edb279595fd7f43c.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-807-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/valid/images/1-83-_jpg.rf.7f81773e1db011b166913d68c7d47fc8.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-83-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6733-_jpg.rf.3b427c8382d3748820528fbfe72f40ef.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6733-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/test/images/1-321-_jpg.rf.839d39d5f3fbfd1044214900d47e34fc.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-321-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-237-_jpg.rf.1f55474c92facca55b3309aa880ccb49.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-237-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-97-_jpg.rf.24e78c09fa7701510ec45ea29234ed3b.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-97-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6427-_jpg.rf.5ba96df5a85c85a52976a1ad50ed4c73.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6427-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6950-_jpg.rf.0df4ceb88e7aa0ae0a8eed5c42353a1a.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6950-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/valid/images/1-6902-_jpg.rf.3351ad761c9149d1783fab37bc74de3b.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6902-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-166-_jpg.rf.f1079569448c907b15231eeed3ffefaa.jpg",
+      "split": "train",
+      "bucket": "medium",
+      "source": "1-166-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/test/images/1-64-_jpg.rf.f7d36f4e30db6297e3778162c51dc705.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-64-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-25-_jpeg.rf.2e428a04aaa21a202eccce6c7df39cb8.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-25-_jpeg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6617-_jpg.rf.b95dbc5d2aa62579ef8f77c01ab34738.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6617-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6929-_jpg.rf.51c9efa0aba8381f39af8886db7f7359.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6929-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/valid/images/1-674-_jpg.rf.f5b10ffc4efcd41dfa6d8890f83fbe2a.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-674-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-731-_jpg.rf.db68a0c419c8dae0a9bcc0d772337006.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-731-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6744-_jpg.rf.68812b9bf5f464bf05573f5f491d06e2.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6744-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/valid/images/1-266-_jpg.rf.62c8aea850087ef4c183a39c18e64a40.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-266-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6537-_jpg.rf.a7be4c6d29b989d60d2af772c4cd42e6.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6537-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6899-_jpg.rf.82f41b32c8597ea39ddb3f5440455280.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6899-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6615-_jpg.rf.7c0fba63448af9489ea42fcb2d4df364.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6615-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-876-_jpg.rf.7d10a953b94926c112f1bc35dbc2cbc7.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-876-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-259-_jpg.rf.37a083ed8107f35078745b1fb5757ff3.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-259-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6656-_jpg.rf.301dcc191a37c29ad322c94bd0f82587.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6656-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6694-_jpg.rf.92ec4fe80ab9fdae9b038301f2f9a9d0.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6694-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6711-_jpg.rf.87d40f7a915ed8a6b4781321cd9481f8.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6711-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-310-_jpg.rf.6b0f694b77cda3d0c8a572db3cab332e.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-310-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6524-_jpg.rf.a80bdcebed96aa85258b1a7994163caf.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6524-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-986-_jpg.rf.468760d50e6369d59754fb211e4cbc32.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-986-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/test/images/1-6644-_jpg.rf.4668556978336a894cdd71014a573a4f.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6644-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/valid/images/1-6809-_jpg.rf.ed4a2d74a8601c7f789f46bc4cdfb9bc.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6809-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-708-_jpg.rf.871e738c9090ef276a33bf77a4f2a79a.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-708-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/valid/images/1-896-_jpg.rf.4e3d2c7d14aec77fee914e471b9669b6.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-896-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-359-_jpg.rf.d21da0935752c66d64d76fe935f31230.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-359-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/valid/images/1-796-_jpg.rf.dd668c1a8298f54472fec40ea6f3ab9d.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-796-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6771-_jpg.rf.4a06dece9d57a9faed391cf50518aa05.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6771-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/valid/images/1-6797-_jpg.rf.70d5b205612d8562ddd814e6ae6a0776.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6797-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-662-_jpg.rf.817b644e8a0c21bcb515944625f646d5.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-662-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-60-_png.rf.5738201e3e7126e3977247585ecc43d3.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-60-_png"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6754-_jpg.rf.a0e3cb8b2fa1d3cedb3aef367db5460e.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6754-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6592-_jpg.rf.7d649bccbd0816daf191cd47663bae5a.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6592-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-11-_jpeg.rf.0a69ffa697ce94ae2fc9b1cd72716dde.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-11-_jpeg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-734-_jpg.rf.8195bd47da5fd4a9369bcad636e33f9b.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-734-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-965-_jpg.rf.89ebc3a525b217232f7715d575b10e1d.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-965-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/valid/images/1-276-_jpg.rf.ba5d6fa0e2a17911f724279951306a4f.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-276-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/test/images/1-6907-_jpg.rf.6aae95f1d8deae29773a8c770e6ce2d0.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6907-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6893-_jpg.rf.465a5f2a864b862f9fc25924ff55f927.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6893-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-748-_jpg.rf.4822d3e0fa9162aa9738f4f78e3d9e6a.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-748-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/test/images/1-11-_jpg.rf.c6b348f6c4ff5f849d2ffd2d50c0e717.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-11-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-62-_jpg.rf.16ec59f967e5918f7f3172324e7e7289.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-62-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-232-_jpg.rf.9d1f36903681bffd5e41617ee8a7b28c.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-232-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-647-_jpg.rf.80ad9e8e67bff1099d069fb89e5f0f42.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-647-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/test/images/1-838-_jpg.rf.1b872dc644399f806d5a6041f8ef513e.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-838-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6768-_jpg.rf.715c042a876ec3a793184ffffc1bb938.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6768-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6730-_jpg.rf.5f9d468fd8f0f7b1d8a8d2d166e723d0.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6730-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-829-_jpg.rf.7fa99084d03154acb46c2c573227422f.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-829-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-804-_jpg.rf.81e69395be15f3bc0d8a69d6a21b2b78.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-804-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/test/images/1-6774-_jpg.rf.af64bb9a26dbccc5beaa1b771d8cd860.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6774-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-55-_jpg.rf.1fb45d7a3af7abe3be6a539f1b381e22.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-55-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/test/images/1-6763-_jpg.rf.8ace59a2d9de3cbcfb94762913f245ca.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6763-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6805-_jpg.rf.50febe046aa61dab52a8434cc044d1b7.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6805-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-643-_jpg.rf.7cb1041250f5b1b46bf3d2b76a7c5441.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-643-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-342-_jpg.rf.acaac5dacfbf52b50af83ddfe063c748.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-342-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-701-_jpg.rf.4c23374dfea3bdaea0526d295f20eb0c.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-701-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6466-_jpg.rf.77d1830e0c654614265e21b5b8633fdb.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6466-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6890-_jpg.rf.ccf8b690cd785cb075001134a35bf83c.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6890-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6938-_jpg.rf.b55418ba1f5ae040c1abe1a35abb5583.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6938-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6545-_jpg.rf.bff8ef589c3e68bcaf9e404b5d433949.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6545-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/valid/images/1-826-_jpg.rf.39dabdda1fb6010fbc4c5e8926b8cab8.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-826-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-15-_png.rf.fcd82aa597fe9b54786411bdd9511dd0.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-15-_png"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/valid/images/1-6979-_jpg.rf.0e88f673a5d8422b4bce570eb486cc85.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6979-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6991-_jpg.rf.6bd63658ddb3c1653885d5e51c03923c.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6991-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6785-_jpg.rf.6853518c35dba3386d0769231530e212.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6785-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-1-_jpg.rf.ce411229da378630a76150d34ed42e0c.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-1-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-14-_png.rf.c130c9ac65fc4f90001be2337d6adb0e.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-14-_png"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/valid/images/1-6672-_jpg.rf.f3c0889dae10cc5b659d9d206403681a.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6672-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6872-_jpg.rf.3f7c31dce76ab8507805dab75792a85a.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6872-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6920-_jpg.rf.a68af200c0acde5da73f9190226573d4.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6920-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-57-_jpg.rf.f6482da2195419167026b1d051dd731f.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-57-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6543-_jpg.rf.793a7b22cca4265013decadc74b319a1.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6543-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/valid/images/1-6469-_jpg.rf.35636c97644b362cae2c2022de90232d.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6469-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6989-_jpg.rf.d4a1683e3bf18f119646643fc33706a3.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6989-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/valid/images/1-79-_png.rf.c17ecf276333b46e3eef66d83ae6a557.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-79-_png"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/test/images/1-714-_jpg.rf.38efa21dbb48eba78ce44e5a68e705bd.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-714-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-727-_jpg.rf.f70cdde07d259655cfeeb17389c9b7c2.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-727-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/valid/images/1-6963-_jpg.rf.68e8a8469c9fbd2f6dd0b2090280560b.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6963-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/valid/images/1-31-_png.rf.c5ce8fc61347f96a139f3864149154db.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-31-_png"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6957-_jpg.rf.a29e548f8050a286aa4c2e8d0eb76033.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6957-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6658-_jpg.rf.6fdb2841a6649592038bf9fe90fbad10.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6658-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-854-_jpg.rf.d519bfde50681bcc5efb1ac2bda9b91d.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-854-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/valid/images/1-883-_jpg.rf.bbcc2733202606d32bd47980835f7ca2.jpg",
+      "split": "train",
+      "bucket": "medium",
+      "source": "1-883-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6529-_jpg.rf.510c751b617e3d7550d8cae9619ee2a3.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6529-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-345-_jpg.rf.4f4db61651c9b6a76593d0b7bec9f892.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-345-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-893-_jpg.rf.e6d5b3bf43fb88a956bbe49ac0e9e557.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-893-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-72-_jpg.rf.c259ea7b499a3982e6b7212e0e4119e3.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-72-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-660-_jpg.rf.00caf265793e5f0f7f407f7d2b7a8a2a.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-660-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6706-_jpg.rf.bc2a3ec3436d91d20c4c48c396ec1d8a.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6706-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/test/images/1-6784-_jpg.rf.e1ba4260ad750248d87425821f747d89.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6784-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6626-_jpg.rf.4fc8fe4162dfeb063d149bee4533f3a1.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6626-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6840-_jpg.rf.fccce9381eb00e31be405fb7e80f5ee0.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6840-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6752-_jpg.rf.bdc36988f383c9b368d048101c73c3be.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6752-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-284-_jpg.rf.4fd52be41c5b720b429e19e15efe09af.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-284-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-23-_jpg.rf.e060149a3a091e4433ed0d909b140b77.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-23-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-872-_jpg.rf.978888e22fe5f32c207dd7a108ae5d94.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-872-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6937-_jpg.rf.d0ff17e4b984c943d462a6051294736b.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6937-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/test/images/1-147-_jpg.rf.88cbcc8a7098056e8732975f21b50fca.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-147-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6868-_jpg.rf.a46d1d18b6118587043d15023f4346c7.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6868-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/test/images/1-655-_jpg.rf.b6f44e52a12e034ad3f659196af2dba8.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-655-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-2-_jpg.rf.5e3c36ac30b4d779a34913741d86ea83.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-2-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/test/images/1-6773-_jpg.rf.7e874d7348265b2d723fe513f1f19036.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6773-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6729-_jpg.rf.65e6c641456b81e48f87afc157953785.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6729-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6426-_jpg.rf.58ae5eee92f76f8a82c43348c5a92b6f.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6426-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-4-_jpg.rf.9048dd81058dfd86967171f63ed19411.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-4-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6598-_jpg.rf.fd8679a928907c2e9f3e22df898d5ee9.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6598-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/test/images/1-657-_jpg.rf.6f6f38b745fd5d52e133999dbcfc39ef.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-657-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/valid/images/1-6781-_jpg.rf.3c5b23c7fd1c4db3db7a1938028dc76e.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6781-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/test/images/1-6573-_jpg.rf.2a2ddf3369d77fd684e105f84854c174.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6573-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6961-_jpg.rf.696f2b8740e286b585e0ae6de6fcf718.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6961-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/valid/images/1-6471-_jpg.rf.fdb968ced9e6ef7d6227b2f56afb3c79.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6471-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6671-_jpg.rf.7911b636c7b0898476a6503074a034a4.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6671-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6689-_jpg.rf.78b357ec0deff1706585233070bc3927.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6689-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6688-_jpg.rf.927d473e58cf027af5b537ba018fa34c.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6688-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-955-_jpg.rf.84a12c87819fea82822981de8b5921f3.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-955-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-127-_jpg.rf.648c5e98a1ff88cba6949af9cac758b7.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-127-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-754-_jpg.rf.82908e7914826392e0a7f96230b1e0ee.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-754-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-719-_jpg.rf.3b72041a4972e4e59752a3df2b2cdf16.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-719-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-799-_jpg.rf.d632f77cd39daba9ed2d8fcfcda8a5f9.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-799-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-59-_png.rf.54e0d8588e2024bc3b6a205b1cf1d2d9.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-59-_png"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6932-_jpg.rf.a3836312a5669ceec1e31f874cd7ed08.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6932-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-665-_jpg.rf.da85f2521fc7c6bbfa5d244175c401be.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-665-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6883-_jpg.rf.6be2b9449f156fb593ed49d274a05abd.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6883-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/valid/images/1-6514-_jpg.rf.4dff1cc42b10339b58d88997c0bd41ba.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6514-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6695-_jpg.rf.c32865295c69da4ebdacd57cad3d2bfc.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6695-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6985-_jpg.rf.c46b6601ec908c6810fdb0a3b46faa53.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6985-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/valid/images/1-669-_jpg.rf.12a2135cf7d4758f95dbba0fa54b0902.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-669-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6564-_jpg.rf.f0a639272d6e486db0d3164c28f364c4.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6564-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-101-_png.rf.b086a1e81925de9411da55b91c76cfcc.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-101-_png"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6947-_jpg.rf.ff25261098dd37991b8f7729e3d5351a.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6947-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6823-_jpg.rf.941d677d41c4ff9fa50fcb78d2ea720a.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6823-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-109-_jpg.rf.804e51429ee82dcb2d23443f1e8ab396.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-109-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/valid/images/1-13-_png.rf.99195adf87573b6dcfc687e943faa69b.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-13-_png"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6859-_jpg.rf.8fae9832116c3fe4c3bd9c33660305aa.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6859-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/valid/images/1-6928-_jpg.rf.eead07a8d579de48b0bfb38d3efab412.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6928-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-107-_png.rf.7a477a85b72f018df5c03cd1e9842fff.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-107-_png"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/valid/images/1-314-_jpg.rf.216114281fd4b0905de6ba6581a47ffe.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-314-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-816-_jpg.rf.f0aa2a1c8c846b7b9c2791f2fce2a46e.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-816-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6952-_jpg.rf.ef62cdc315bce8df394b5a3d920f585e.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6952-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-668-_jpg.rf.8959d57dff69ff4e79f50ffacb9b6b01.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-668-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/test/images/1-164-_jpg.rf.ee4e558074cde1b4864d5ddccdf58c8b.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-164-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6747-_jpg.rf.1f9db6d0a562679e8526fb847c496a2d.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6747-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-915-_jpg.rf.3b542c57d27e826cc78eac3b9dbb88f1.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-915-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-121-_jpg.rf.2c26825d185f653a776119e6636cc839.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-121-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6761-_jpg.rf.99010cceb52a4fa0718b46ced20207dc.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6761-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/valid/images/1-6496-_jpg.rf.f6be8c25efec75c2135919832be3ab8e.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6496-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/valid/images/1-6669-_jpg.rf.dba3507c97f3e1dc11d44d540cebf35e.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6669-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6728-_jpg.rf.993e1b586d238b5ba188f883394b897c.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6728-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6873-_jpg.rf.b2ea5a5c721ee0d40e3fbbf4c372b1f4.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6873-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6956-_jpg.rf.1dc5f8f1e9998d84ae638e7b64997363.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6956-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-765-_jpg.rf.6993901d1be9f3c5a91ccfb9874b6d6b.jpg",
+      "split": "valid",
+      "bucket": "medium",
+      "source": "1-765-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6424-_jpg.rf.23cf0981efbb6f2a08565175f93eee02.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6424-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-50-_jpg.rf.ccb3e6ee66d106b40a69b66ce3951115.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-50-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-10-_jpg.rf.b885a8f95a53173d422c57cf0383a475.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-10-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-206-_jpg.rf.e58be033df8f8aaebdfbdefac1154d92.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-206-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/valid/images/1-6770-_jpg.rf.f1a54d57b5c42d1eebe7fd77a8eacb73.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6770-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6949-_jpg.rf.02217e4ceadaf4dffb512d957605924a.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6949-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6480-_jpg.rf.55d88664e063b93eac61baa55d7e59ba.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6480-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-344-_jpg.rf.21c78b7eb108ba702cafe3e1f311df69.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-344-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-282-_jpg.rf.c435b806a611428b51791d5033adc93e.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-282-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-18-_jpg.rf.77919bd86f4b53d8b586f17b188512f1.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-18-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6692-_jpg.rf.2e09b8899761e76830fb9f871b732a02.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6692-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6577-_jpg.rf.f1ec9a19fe90b69c2e1e2d97abd798e7.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6577-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6419-_jpg.rf.e4a798daaa817f6152a9bab4c0bfd4be.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6419-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/valid/images/1-6662-_jpg.rf.1609116bc1aa6e4ea4276e81cb88c4f9.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6662-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6497-_jpg.rf.01fd87773e9e45f0cb111abf3b208f2e.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6497-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6780-_jpg.rf.966fe4013e769b8a4d5e928157e90a9d.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6780-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-982-_jpg.rf.5e5d251e9c10bf82b51299a999d28a81.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-982-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-832-_jpg.rf.5c7a6bc011b930b02118d1b018f9a898.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-832-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-154-_jpg.rf.c84be2a19ed4aecb06dc4b94ac67913d.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-154-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-12-_jpg.rf.e3315d2e19250edafd11e81198a950c8.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-12-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6905-_jpg.rf.6ebfef1b34c06299e47d9242a13afbc6.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6905-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6463-_jpg.rf.0ea2b4405d4188e8d6bd2dde56dce222.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6463-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/test/images/1-6481-_jpg.rf.9bbc516435318a0cc8c1e7f3b13b645b.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6481-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6509-_jpg.rf.aa641641b4f71324a4b1f297a012f15e.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6509-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-886-_jpg.rf.042af577003311d5223aa6d5ed1ce3fb.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-886-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6641-_jpg.rf.6488d51d5eaccf64fabfb1719d6e6551.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6641-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-217-_jpg.rf.7dbd6a79335828b4728b2b4d099a4f41.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-217-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-941-_jpg.rf.1619a4dab16216ec64f1e295705d0a0b.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-941-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6901-_jpg.rf.cc4ed98d4c1d5dafd1f320ef6df9a7b8.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6901-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6612-_jpg.rf.32fd25c905598a543fc572b273dc847b.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6612-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6540-_jpg.rf.d31fdf47682801bcb49d2ab219866fa5.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6540-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/test/images/1-945-_jpg.rf.fdfbfd740a65ced899b7bbfdfd3aa571.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-945-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-129-_jpg.rf.060ef63aefbfd16bfe4fb61ff3e60a6a.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-129-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/valid/images/1-6549-_jpg.rf.12fffad6098fc1eff79ecdfb9fa1285a.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6549-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-4-_png.rf.67c2ce2ea05531027b593d83e97201d0.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-4-_png"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6518-_jpg.rf.3aa512a77e81ec45bb07ca0f4b07c351.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6518-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6582-_jpg.rf.942c4f5b62b182a112d3e70f7dfc212a.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6582-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-825-_jpg.rf.7383d50649fea0b44fe7d89febec56ad.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-825-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/test/images/1-119-_jpg.rf.99a4e061144f5404be7af0cebebd60d1.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-119-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/valid/images/1-957-_jpg.rf.65f6abeed1e6a05e81171708ebcefd02.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-957-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/valid/images/1-174-_jpg.rf.a9653c20659253242585b07d033e595c.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-174-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6673-_jpg.rf.95454a6111005b728589dd5349c9a61b.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6673-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6923-_jpg.rf.bf3d8dfde0ef34cd44fecd70d18fc427.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6923-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/valid/images/1-6584-_jpg.rf.87247aaf73eff5021f33c6ff08235f8a.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6584-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6831-_jpg.rf.1f8a5074a628e8fcc70b8813274864c6.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6831-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6677-_jpg.rf.66d7c033ef013488e6ee40338b742a92.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6677-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-869-_jpg.rf.ce2bdf689eb111e6b71a57242bf639e5.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-869-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6886-_jpg.rf.572f0a6ab8d3296b29553b00966e716f.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6886-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/valid/images/1-6654-_jpg.rf.ba716317c28a141ff5a49d073dee5cf4.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-6654-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/valid/images/1-6984-_jpg.rf.291f289d29afa72e8f5cac2c07094384.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6984-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/valid/images/1-212-_jpg.rf.7ea8b1d5c1505ae9b3729c0fc74ffb62.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-212-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/valid/images/1-70-_jpg.rf.a02090042d1f591b305ef2e71ef734e5.jpg",
+      "split": "train",
+      "bucket": "large",
+      "source": "1-70-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/train/images/1-6817-_jpg.rf.66aa0f27bf29451217fa9689f7df6a86.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-6817-_jpg"
+    },
+    {
+      "path": "Face-Detection.v2-datasetv2.yolov8/test/images/1-63-_jpg.rf.24d8fcb4f7a81f9e3942a08935bea2b8.jpg",
+      "split": "valid",
+      "bucket": "large",
+      "source": "1-63-_jpg"
+    }
+  ]
+}

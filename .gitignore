@@ -1,0 +1,47 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+*.cache
+labels.cache
+
+# Virtual environments
+venv/
+env/
+.venv/
+.env
+
+# Large raw datasets (not committed to git)
+Face-Detection.v2-datasetv2.yolov8/
+datasets/
+
+# Training logs and intermediate runs
+runs/
+*.log
+
+# Candidate intermediate weights (ignore intermediate candidate checkpoints)
+models/stage1/E*_best.pt
+models/stage1/S*_best.pt
+models/stage1/best.onnx
+models/stage2/int8.onnx
+exports/stage2/tensorrt/
+
+# Allow champion models, export references, metadata, and checksums
+!models/stage1/best.pt
+!models/stage2/best_int8.onnx
+!models/**/*.json
+!models/**/*.sha256
+!models/**/*.yaml
+!exports/stage2/onnxruntime/best.onnx
+!exports/stage2/onnxruntime/best.onnx.sha256
+!exports/stage2/onnxruntime/export_info.json
+
+# Pretrained upstream weights (auto-downloaded by Ultralytics)
+yolov8n.pt
+
+.ultralytics/
+.vscode/
+.idea/
+.DS_Store

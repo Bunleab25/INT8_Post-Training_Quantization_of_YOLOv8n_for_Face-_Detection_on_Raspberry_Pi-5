@@ -1,0 +1,11 @@
+{
+  "experiment": "X0",
+  "generated": "2026-11-07T18:59:16",
+  "weights": "/home/bunleab/face_yolov/models/stage1/best.pt",
+  "weights_sha256": "67e43b850d45f3fd79043ee1d61b0b33e9511c3450cf7a6e70a740ecb1af67b3",
+  "onnx": "/home/bunleab/face_yolov/exports/stage2/onnxruntime/best.onnx",
+  "onnx_sha256": "eab51114021a45023e3ce711124de75287214a87121209ce7000be5ebf6cf9db",
+  "imgsz": 416,
+  "runtime": "onnxruntime",
+  "format": "onnx"
+}

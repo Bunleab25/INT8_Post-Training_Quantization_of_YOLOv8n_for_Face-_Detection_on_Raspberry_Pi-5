@@ -1,0 +1,34 @@
+{
+  "experiment": "H0",
+  "generated": "2026-11-07T19:28:23",
+  "target_device": "NVIDIA GeForce RTX 3050 Laptop GPU / x86_64 CPU",
+  "latency_definition": "model_only",
+  "latency_target_ms": 20.0,
+  "imgsz": 416,
+  "warmup_runs": 50,
+  "bench_runs": 200,
+  "engine": "/home/bunleab/face_yolov/models/stage2/int8.onnx",
+  "int8": {
+    "backend": "ultralytics",
+    "samples": 200,
+    "latency_ms_median": 16.400358500504808,
+    "latency_ms_p95": 25.340481799139518,
+    "latency_ms_mean": 16.56737676499688,
+    "peak_gpu_gib": 0.0
+  },
+  "fp32_reference": {
+    "backend": "ultralytics",
+    "samples": 50,
+    "latency_ms_median": 3.0709410002600634,
+    "latency_ms_p95": 3.814336950199504,
+    "latency_ms_mean": 3.1697818602333427,
+    "peak_gpu_gib": 0.02
+  },
+  "latency_pass": true,
+  "memory_pass": true,
+  "memory_limit_gib": 3.5,
+  "gate5_pass": true,
+  "accuracy_pass": true,
+  "overall_pass": true,
+  "promoted": "/home/bunleab/face_yolov/models/stage2/best_int8.onnx"
+}

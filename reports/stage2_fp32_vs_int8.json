@@ -1,0 +1,76 @@
+{
+  "generated": "2026-11-07T19:11:56",
+  "imgsz": 416,
+  "allowed_map50_95_drop": 0.015,
+  "allowed_ood_map50_95_drop": 0.02,
+  "fp32_test_map50_95": 0.6541312913320605,
+  "int8_test_map50_95": 0.6549043472848294,
+  "test_drop": -0.0007730559527688863,
+  "test_pass": true,
+  "fp32_ood_map50_95": 0.0006691176470588235,
+  "int8_ood_map50_95": 0.0,
+  "ood_drop": 0.0006691176470588235,
+  "ood_pass": true,
+  "ood_note": null,
+  "accuracy_pass": true,
+  "recall_by_size": {
+    "fp32_test": {
+      "large": {
+        "gt": 113,
+        "tp": 111,
+        "recall": 0.9823008849557522
+      },
+      "medium": {
+        "gt": 1,
+        "tp": 1,
+        "recall": 1.0
+      }
+    },
+    "int8_test": {
+      "large": {
+        "gt": 113,
+        "tp": 112,
+        "recall": 0.9911504424778761
+      },
+      "medium": {
+        "gt": 1,
+        "tp": 1,
+        "recall": 1.0
+      }
+    },
+    "fp32_ood": {
+      "small": {
+        "gt": 2,
+        "tp": 0,
+        "recall": 0.0
+      },
+      "medium": {
+        "gt": 1,
+        "tp": 0,
+        "recall": 0.0
+      },
+      "large": {
+        "gt": 2,
+        "tp": 0,
+        "recall": 0.0
+      }
+    },
+    "int8_ood": {
+      "small": {
+        "gt": 2,
+        "tp": 0,
+        "recall": 0.0
+      },
+      "medium": {
+        "gt": 1,
+        "tp": 0,
+        "recall": 0.0
+      },
+      "large": {
+        "gt": 2,
+        "tp": 0,
+        "recall": 0.0
+      }
+    }
+  }
+}

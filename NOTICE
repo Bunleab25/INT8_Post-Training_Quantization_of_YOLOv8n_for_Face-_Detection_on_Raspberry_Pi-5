@@ -1,0 +1,10 @@
+Dataset: Face-Detection v2 (DatasetV2)
+Source: https://universe.roboflow.com/thesis-cg8kk/face-detection-mgde2/dataset/2
+Workspace: thesis-cg8kk
+Licence: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
+Exported via Roboflow on 2025-09-18.
+
+This project uses the dataset for academic face-detection experiments.
+Attribution to the dataset author/workspace above is required by the licence.
+The dataset contains images of people; handle them in line with privacy and
+institutional-review requirements.

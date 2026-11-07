@@ -1,0 +1,15 @@
+{
+  "stage1_gate4_approved": false,
+  "target_device": "NVIDIA GeForce RTX 3050 Laptop GPU",
+  "runtime": "tensorrt",
+  "latency_target_ms": 10,
+  "allowed_map50_95_drop": 0.02,
+  "allowed_ood_map50_95_drop": 0.03,
+  "imgsz": 416,
+  "latency_definition": "model_only",
+  "warmup_runs": 50,
+  "bench_runs": 200,
+  "calibration_count": 300,
+  "ood_dir": "data/ood",
+  "calibration_manifest": "calibration/images.json"
+}
