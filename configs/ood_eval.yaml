@@ -1,4 +1,4 @@
-path: /home/bunleab/face_yolov/data/ood
+path: data/ood
 train: images
 val: images
 test: images
