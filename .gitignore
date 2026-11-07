@@ -42,6 +42,7 @@ exports/stage2/tensorrt/
 yolov8n.pt
 
 .ultralytics/
+.superpowers/
 .vscode/
 .idea/
 .DS_Store

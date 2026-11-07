@@ -90,6 +90,11 @@ Evaluation conducted on the identical frozen test split (114 images, 114 ground 
 │   └── stage2.template.json            # Template for deployment & target specs
 ├── data/
 │   └── ood/                            # Out-of-distribution test suite & annotations
+├── docs/
+│   ├── technical_report.md             # Full research & engineering technical report
+│   ├── pi_benchmark_guide.md           # Step-by-step Raspberry Pi 5 benchmarking guide
+│   ├── stage1_architecture.md          # Stage 1 FP32 training & audit specification
+│   └── stage2_architecture.md          # Stage 2 INT8 PTQ & hardware gate specification
 ├── exports/
 │   └── stage2/onnxruntime/             # Exported FP32 ONNX model & metadata
 ├── models/
@@ -102,6 +107,14 @@ Evaluation conducted on the identical frozen test split (114 images, 114 ground 
 │       ├── best_int8.onnx              # [Stage 2 Winner] Production INT8 quantized model
 │       ├── best_int8.onnx.sha256       # Production model checksum
 │       └── int8_info.json              # Quantization & calibrator metadata
+├── pi/                                 # Standalone Raspberry Pi 5 edge deployment (no PyTorch)
+│   ├── best_int8.onnx                  # Bundled INT8 ONNX model for self-contained deployment
+│   ├── face_detector.py                # Pure NumPy NMS, letterboxing & ONNX Runtime CPU engine
+│   ├── detect_webcam.py                # Live HDMI / headless webcam detection CLI
+│   ├── app_web.py                      # Flask MJPEG real-time web stream & telemetry dashboard
+│   ├── bench_pi.py                     # Automated FP32 vs INT8 & CPU thread scaling benchmark
+│   ├── requirements.txt                # Minimal Pi dependencies (numpy, opencv, onnxruntime, flask)
+│   └── README.md                       # Raspberry Pi 5 setup & usage guide
 ├── reports/                            # Generated evidence for Gate 0 through Gate 5
 ├── scripts/
 │   ├── audit_dataset.py                # Gate 1: Perceptual hash & leakage audit
@@ -118,7 +131,10 @@ Evaluation conducted on the identical frozen test split (114 images, 114 ground 
 │   └── stage2_summary.py               # Generates final Stage 2 summary report
 ├── splits/                             # Frozen image split manifests (train/val/test)
 ├── tests/
-│   └── test_stage2_preflight.py        # Automated test suite
+│   ├── test_bench_pi.py                # Edge benchmark & telemetry unit tests
+│   ├── test_detect_webcam.py           # CLI & camera source resolution unit tests
+│   ├── test_face_detector.py           # Letterbox, pure-NumPy NMS & coordinate scaling unit tests
+│   └── test_stage2_preflight.py        # Stage 2 preflight & calibration guard unit tests
 ├── requirements.txt                    # Python package dependencies
 ├── LICENSE                             # MIT License
 └── NOTICE                              # Dataset attribution & licensing notice
@@ -143,7 +159,24 @@ python -m unittest discover tests
 python scripts/stage2_preflight.py
 ```
 
-### 3. Run Inference with the Promoted INT8 Model
+### 3. Edge Deployment on Raspberry Pi 5 (`pi/`)
+
+Run lightweight CPU inference via ONNX Runtime without installing PyTorch or Ultralytics (see [`pi/README.md`](pi/README.md)):
+
+```bash
+# Live webcam detection (HDMI display or headless frame capture)
+python pi/detect_webcam.py --camera 0
+
+# Real-time MJPEG web streaming dashboard (view on any browser at http://<ip>:5000)
+python pi/app_web.py --camera 0 --port 5000
+
+# Run hardware benchmark suite (FP32 vs INT8, stage breakdown, 1-4 CPU threads, thermals)
+python pi/bench_pi.py --warmup 30 --runs 150
+```
+
+See [`docs/pi_benchmark_guide.md`](docs/pi_benchmark_guide.md) for the step-by-step Raspberry Pi 5 measurement protocol and [`docs/technical_report.md`](docs/technical_report.md) for the full research report.
+
+### 4. Run Inference with Ultralytics Python API
 
 ```python
 from ultralytics import YOLO
@@ -156,7 +189,7 @@ results = model.predict(source="data/ood/images/ood_01_small_faces.jpg", imgsz=4
 print(f"Detected {len(results[0].boxes)} faces.")
 ```
 
-### 4. Reproduce the Full Two-Stage Lifecycle
+### 5. Reproduce the Full Two-Stage Lifecycle
 
 #### Stage 1: Data Audit, Split & Training
 ```bash

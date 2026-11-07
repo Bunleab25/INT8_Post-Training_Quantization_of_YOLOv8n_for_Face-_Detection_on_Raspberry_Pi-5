@@ -1,4 +1,4 @@
-.PHONY: help install test preflight eval-stage1 eval-stage2 benchmark clean
+.PHONY: help install test preflight eval-stage1 eval-stage2 benchmark clean run-pi run-pi-web bench-pi
 
 PYTHON ?= python3
 
@@ -10,6 +10,9 @@ help:
 	@echo "  make eval-stage1   - Evaluate Stage 1 FP32 model on frozen test split"
 	@echo "  make eval-stage2   - Compare FP32 vs INT8 models on test and OOD splits"
 	@echo "  make benchmark     - Run Gate 5 hardware latency & memory benchmark"
+	@echo "  make bench-pi      - Run standalone ONNX CPU benchmark (FP32 vs INT8 & thread sweep)"
+	@echo "  make run-pi        - Run webcam face detection using the Pi package"
+	@echo "  make run-pi-web    - Run Flask MJPEG web streaming face detection server"
 	@echo "  make clean         - Remove bytecode, cache, and temporary build files"
 
 install:
@@ -29,6 +32,15 @@ eval-stage2:
 
 benchmark:
 	$(PYTHON) scripts/bench_target.py --config configs/stage2.json
+
+run-pi:
+	$(PYTHON) pi/detect_webcam.py
+
+run-pi-web:
+	$(PYTHON) pi/app_web.py
+
+bench-pi:
+	$(PYTHON) pi/bench_pi.py
 
 clean:
 	find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true

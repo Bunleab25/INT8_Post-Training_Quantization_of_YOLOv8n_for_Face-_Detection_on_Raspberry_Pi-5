@@ -19,6 +19,9 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   - 3.5× size reduction: 12.1 MB FP32 → 3.5 MB INT8
   - Gate 5 latency check: median 15.0 ms on CPU (budget 20 ms) ✅
   - Frozen artifact: `models/stage2/best_int8.onnx` (SHA-256 verified)
+- **Raspberry Pi 5 Edge Deployment (`pi/`)**
+  - Standalone ONNX Runtime CPU detector (`pi/face_detector.py`) with pure-NumPy NMS and letterboxing (zero PyTorch/Ultralytics dependency)
+  - Live webcam CLI (`pi/detect_webcam.py`) and Flask MJPEG web streaming dashboard (`pi/app_web.py`)
 - Professional project structure: `README.md`, `LICENSE` (MIT), `Makefile`, `pyproject.toml`, `requirements.txt`
 - CI workflow via GitHub Actions (`.github/workflows/ci.yml`)
 - Architecture docs in `docs/`

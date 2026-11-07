@@ -31,11 +31,20 @@ dependencies = [
     "onnx>=1.14.0",
     "onnxruntime>=1.15.0",
     "onnxslim>=0.1.0",
+    "opencv-python>=4.8.0",
     "numpy>=1.24.0",
     "pillow>=9.5.0",
     "pyyaml>=6.0",
 ]
 
+[project.optional-dependencies]
+pi = [
+    "numpy>=1.24.0",
+    "opencv-python>=4.8.0",
+    "onnxruntime>=1.17.0",
+    "flask>=2.0.0",
+]
+
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["scripts*", "tests*"]
+include = ["scripts*", "tests*", "pi*"]
