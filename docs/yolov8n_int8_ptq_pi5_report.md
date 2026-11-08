@@ -1,6 +1,6 @@
 # INT8 Post-Training Quantization of YOLOv8n for Face Detection on Raspberry Pi 5
 
-**Author:** Bunleab · **Date:** November 2026 · **Repository:** `face_yolov`
+**Author:** Bunleab · **Date:** November 2026
 
 ## Abstract
 
@@ -39,10 +39,10 @@ Figure 2 shows the static PTQ flow: FP32 ONNX → graph optimisation → preproc
 **Affine quantization** [3, 4]. For range $[\alpha_{\min},\alpha_{\max}]$ and integer range $[q_{\min},q_{\max}]$:
 
 $$
-q=\operatorname{clip}\!\left(\left\lfloor \tfrac{x}{s}\right\rceil+z,\,q_{\min},\,q_{\max}\right),\quad
-\hat{x}=s\,(q-z),\quad
-s=\frac{\alpha_{\max}-\alpha_{\min}}{q_{\max}-q_{\min}},\quad
-z=\operatorname{clip}\!\left(\left\lfloor q_{\min}-\tfrac{\alpha_{\min}}{s}\right\rceil,q_{\min},q_{\max}\right)
+q = \text{clip}\left(\text{round}\left(\frac{x}{s}\right) + z, \; q_{\min}, \; q_{\max}\right), \quad
+\hat{x} = s(q - z), \quad
+s = \frac{\alpha_{\max} - \alpha_{\min}}{q_{\max} - q_{\min}}, \quad
+z = \text{clip}\left(\text{round}\left(q_{\min} - \frac{\alpha_{\min}}{s}\right), \; q_{\min}, \; q_{\max}\right)
 $$
 
 Weights are symmetric ($z_w=0$, $s_w=\max|w|/127$).
@@ -55,10 +55,10 @@ $$
 
 **Error.** Inside the range $|x-\hat{x}|\le s/2$ and, for uniform rounding error, $\mathbb{E}[(x-\hat{x})^2]=s^2/12$; outliers widen the range and enlarge $s$.
 
-**Integer convolution.** With INT32 accumulator $A_j=\sum_k (q_{x,k}-z_x)\,q_{w,jk}$:
+**Integer convolution.** With INT32 accumulator $A_j = \sum_k (q_{x,k} - z_x) q_{w,jk}$:
 
 $$
-y_j\approx s_x s_w A_j,\qquad q_{y,j}=\operatorname{clip}\!\left(\lfloor M A_j\rceil+z_y,\,q_{\min},\,q_{\max}\right),\quad M=\frac{s_x s_w}{s_y}
+y_j \approx s_x s_w A_j, \qquad q_{y,j} = \text{clip}\left(\text{round}(M A_j) + z_y, \; q_{\min}, \; q_{\max}\right), \quad M = \frac{s_x s_w}{s_y}
 $$
 
 | Setting | Value |
@@ -73,7 +73,7 @@ Keeping the DFL decode in FP32 protects box localisation, because the Distributi
 ### 2.3 Data, metrics, and setup
 
 - **Dataset:** Roboflow *Face-Detection v2*, 2,173 images (416×416). A dHash audit found 40 clusters leaking across splits; after cluster-aware deduplication: **907 train / 114 val / 114 test**, zero overlap, seed 42, 99.6 % large faces. Default Ultralytics online augmentation. Five OOD crowd images are used for stress testing only.
-- **Metrics:** mAP@0.5, mAP@0.5:0.95 $=\tfrac{1}{10}\sum_{t\in\{0.50,\dots,0.95\}}\mathrm{AP}_t$, precision, recall; latency (median, p95, p99), $\mathrm{FPS}=1000/L_{\text{ms}}$, speed-up $S=L_{\mathrm{FP32}}/L_{\mathrm{INT8}}$, model size, peak RSS, SoC temperature and throttle flags. **Not measured:** power and CPU utilisation.
+- **Metrics:** mAP@0.5, mAP@0.5:0.95 ($\frac{1}{10}\sum_{t=0.50}^{0.95}\mathrm{AP}_{t}$), precision, recall; latency (median, p95, p99), $\mathrm{FPS} = 1000 / L_{\text{ms}}$, speed-up $S = L_{\mathrm{FP32}} / L_{\mathrm{INT8}}$, model size, peak RSS, SoC temperature and throttle flags. **Not measured:** power and CPU utilisation.
 - **Hardware / software (Pi):** Raspberry Pi 5 Model B Rev 1.1, aarch64, Linux 6.18.60+rpt-rpi-2712, Python 3.13.5, ONNX Runtime 1.31.1 (`CPUExecutionProvider`, `ORT_ENABLE_ALL`), OpenCV 5.0.0, NumPy 2.5.4; no PyTorch. Training host: RTX 3050 Laptop, PyTorch 2.13.0, Ultralytics 8.4.162. Cooler and RAM size were not recorded.
 - **Reproducibility:** seed 42, `deterministic=True`, `amp=False`, batch 4, patience 20 (run E1, 47 epochs). Pi benchmark: 640×480 frames → letterbox 416, conf 0.25, IoU 0.45; sweep 1–4 threads (30 warm-up + 150 runs); endurance 4 threads (50 warm-up + 1,000 runs). Scripts: `scripts/quantize_ptq.py`, `pi/bench_pi.py`, `scripts/plot_pi_benchmarks.py`; data in `reports/pi_benchmark*.json`.
 
@@ -165,10 +165,10 @@ The quantized model is served by a Flask application (`pi/app_web.py`) that stre
 
 ## 5. Discussion
 
-**Trade-offs.** Accuracy cost is at most 0.81 pt (mAP@0.5:0.95 unchanged), size falls 3.69× and burst latency 1.28×. With 114 faces one detection moves recall by 0.88 pt, so sub-1-pt differences are within noise. The size ratio is below 4× because the head stays FP32 and the file stores scales and QDQ metadata. The measured inference speed-up $S_{\text{inf}}=80.09/61.96=1.29$ implies, via Amdahl's law $S_{\text{inf}}=1/\big((1-f_q)+f_q/S_q\big)$,
+**Trade-offs.** Accuracy cost is at most 0.81 pt (mAP@0.5:0.95 unchanged), size falls 3.69× and burst latency 1.28×. With 114 faces one detection moves recall by 0.88 pt, so sub-1-pt differences are within noise. The size ratio is below 4× because the head stays FP32 and the file stores scales and QDQ metadata. The measured inference speed-up $S_{\text{inf}}=80.09/61.96=1.29$ implies, via Amdahl's law $S_{\text{inf}} = 1 / ((1 - f_q) + f_q / S_q)$,
 
 $$
-f_q\left(1-\tfrac{1}{S_q}\right)=1-\tfrac{1}{S_{\text{inf}}}\approx 0.226,
+f_q \left(1 - \frac{1}{S_q}\right) = 1 - \frac{1}{S_{\text{inf}}} \approx 0.226
 $$
 
 so only part of inference time benefits from integer kernels (FP32 head, QDQ boundary operators, non-Conv ops). This is inferred from end-to-end timings; no per-operator profile was collected.
