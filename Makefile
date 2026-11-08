@@ -1,6 +1,6 @@
-.PHONY: help install test preflight eval-stage1 eval-stage2 benchmark clean run-pi run-pi-web bench-pi
+.PHONY: help install test preflight eval-stage1 eval-stage2 benchmark clean run-pi run-pi-web bench-pi report
 
-PYTHON ?= python3
+PYTHON ?= $(shell [ -x $(HOME)/miniconda3/envs/ai-ml/bin/python ] && echo $(HOME)/miniconda3/envs/ai-ml/bin/python || echo python3)
 
 help:
 	@echo "Available commands:"
@@ -13,6 +13,7 @@ help:
 	@echo "  make bench-pi      - Run standalone ONNX CPU benchmark (FP32 vs INT8 & thread sweep)"
 	@echo "  make run-pi        - Run webcam face detection using the Pi package"
 	@echo "  make run-pi-web    - Run Flask MJPEG web streaming face detection server"
+	@echo "  make report        - Regenerate Pi 5 plots and validate the research report"
 	@echo "  make clean         - Remove bytecode, cache, and temporary build files"
 
 install:
@@ -41,6 +42,10 @@ run-pi-web:
 
 bench-pi:
 	$(PYTHON) pi/bench_pi.py
+
+report:
+	$(PYTHON) scripts/plot_pi_benchmarks.py
+	$(PYTHON) scripts/check_report.py
 
 clean:
 	find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true

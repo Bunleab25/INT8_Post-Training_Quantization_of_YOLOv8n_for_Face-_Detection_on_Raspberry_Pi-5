@@ -28,9 +28,23 @@ import cv2
 
 # Allow running both from repo root and directly inside pi/
 try:
-    from pi.face_detector import FaceDetector, draw_detections
+    from pi.face_detector import (
+        FaceDetector,
+        draw_detections,
+        draw_status_banner,
+        resolve_camera_source,
+        resolve_default_model_path,
+        update_ema_fps,
+    )
 except ImportError:
-    from face_detector import FaceDetector, draw_detections
+    from face_detector import (
+        FaceDetector,
+        draw_detections,
+        draw_status_banner,
+        resolve_camera_source,
+        resolve_default_model_path,
+        update_ema_fps,
+    )
 
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
@@ -39,11 +53,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
 
-    # Determine sensible default model path
-    script_dir = Path(__file__).resolve().parent
-    local_model = script_dir / "best_int8.onnx"
-    repo_model = script_dir.parent / "models" / "stage2" / "best_int8.onnx"
-    default_model = str(local_model if local_model.exists() else repo_model)
+    default_model = resolve_default_model_path()
 
     parser.add_argument(
         "--model",
@@ -105,13 +115,6 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     )
 
     return parser.parse_args(argv)
-
-
-def resolve_camera_source(source_str: str) -> int | str:
-    """Parse camera argument: converts digit strings to integer indices."""
-    if isinstance(source_str, str) and source_str.isdigit():
-        return int(source_str)
-    return source_str
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -202,39 +205,15 @@ def main(argv: list[str] | None = None) -> int:
             t_now = time.perf_counter()
             dt = t_now - t_prev
             t_prev = t_now
-
-            instant_fps = 1.0 / dt if dt > 0 else 0.0
-            fps_smooth = (0.9 * fps_smooth + 0.1 * instant_fps) if fps_smooth > 0 else instant_fps
+            fps_smooth = update_ema_fps(fps_smooth, dt)
 
             # Inference
             detections = detector.detect(frame)
 
-            # Draw boxes
+            # Draw boxes and status banner
             draw_detections(frame, detections)
-
-            # Draw status banner
             num_faces = len(detections)
-            status_text = f"FPS: {fps_smooth:.1f} | Faces: {num_faces}"
-            cv2.putText(
-                frame,
-                status_text,
-                (12, 30),
-                cv2.FONT_HERSHEY_SIMPLEX,
-                0.75,
-                (0, 0, 0),
-                3,
-                cv2.LINE_AA,
-            )
-            cv2.putText(
-                frame,
-                status_text,
-                (12, 30),
-                cv2.FONT_HERSHEY_SIMPLEX,
-                0.75,
-                (0, 255, 255),
-                2,
-                cv2.LINE_AA,
-            )
+            draw_status_banner(frame, f"FPS: {fps_smooth:.1f} | Faces: {num_faces}", org=(12, 30), font_scale=0.75)
 
             # Optional save
             if save_path is not None:

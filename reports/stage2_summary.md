@@ -1,6 +1,6 @@
 # Stage 2 Summary — INT8 Judged Against FP32
 
-Generated: 2026-11-07T20:45:13
+Generated: 2026-11-09T02:26:46
 
 ## Gate status
 

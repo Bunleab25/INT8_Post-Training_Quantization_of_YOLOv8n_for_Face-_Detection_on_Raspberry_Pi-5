@@ -4,7 +4,14 @@ from unittest.mock import MagicMock, patch
 
 import numpy as np
 
-from pi.face_detector import FaceDetector, letterbox, nms
+from pi.face_detector import (
+    FaceDetector,
+    draw_status_banner,
+    letterbox,
+    nms,
+    resolve_default_model_path,
+    update_ema_fps,
+)
 
 
 class TestLetterbox(unittest.TestCase):
@@ -102,6 +109,18 @@ class TestDetectScaling(unittest.TestCase):
         for key in ("preprocess_ms", "inference_ms", "postprocess_ms", "total_ms"):
             self.assertIn(key, timings)
             self.assertGreaterEqual(timings[key], 0.0)
+
+    def test_hud_helpers_and_default_model_path(self):
+        fps1 = update_ema_fps(0.0, 0.05)
+        self.assertAlmostEqual(fps1, 20.0, places=3)
+        fps2 = update_ema_fps(fps1, 0.1)
+        self.assertAlmostEqual(fps2, 0.9 * 20.0 + 0.1 * 10.0, places=3)
+
+        frame = np.zeros((100, 300, 3), dtype=np.uint8)
+        annotated = draw_status_banner(frame, "FPS: 20.0 | Faces: 1")
+        self.assertEqual(annotated.shape, (100, 300, 3))
+        self.assertTrue(np.any(annotated > 0))
+        self.assertTrue(resolve_default_model_path().endswith("best_int8.onnx"))
 
 
 if __name__ == "__main__":

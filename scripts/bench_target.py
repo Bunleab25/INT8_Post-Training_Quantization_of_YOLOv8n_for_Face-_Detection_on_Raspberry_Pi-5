@@ -18,11 +18,10 @@ from pathlib import Path
 
 import numpy as np
 
-
-def load_config(path: Path) -> dict:
-    if not path.is_file():
-        return {}
-    return json.loads(path.read_text(encoding="utf-8"))
+try:
+    from scripts.common import load_json as load_config, sha256_file
+except ImportError:
+    from common import load_json as load_config, sha256_file
 
 
 def median_ms(samples: list[float]) -> float:
@@ -82,7 +81,7 @@ def promote_best_int8(root: Path, engine: Path, pass_gate: bool) -> Path | None:
         return None
     dest = root / "models" / "stage2" / f"best_int8{engine.suffix}"
     shutil.copy2(engine, dest)
-    digest = __import__("hashlib").sha256(dest.read_bytes()).hexdigest()
+    digest = sha256_file(dest)
     (root / "models" / "stage2" / f"best_int8{engine.suffix}.sha256").write_text(
         f"{digest}  models/stage2/best_int8{engine.suffix}\n", encoding="utf-8"
     )
@@ -92,7 +91,7 @@ def promote_best_int8(root: Path, engine: Path, pass_gate: bool) -> Path | None:
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--config", default="configs/stage2.json")
-    ap.add_argument("--engine", default="models/stage2/int8.engine")
+    ap.add_argument("--engine", default="models/stage2/int8.onnx")
     ap.add_argument("--fp32", default="models/stage1/best.pt")
     ap.add_argument("--device", default="0")
     ap.add_argument("--promote", action="store_true", default=True,
@@ -193,13 +192,14 @@ def main() -> int:
             f"| FP32 ref | {fp32_bench['latency_ms_median']:.3f} | {fp32_bench['latency_ms_p95']:.3f} | "
             f"{fp32_bench['peak_gpu_gib']} |"
         )
+    promoted_rel = promoted.relative_to(root).as_posix() if promoted else None
     md += [
         "",
         f"- Latency target: ≤ **{latency_target} ms** → **{'PASS' if latency_pass else 'FAIL'}**",
         f"- Memory limit: ≤ **{memory_limit_gib} GiB** → **{'PASS' if memory_pass else 'FAIL'}**",
         f"- Gate 5: **{'PASS' if gate5_pass else 'FAIL'}**",
         f"- Accuracy gate (from stage2_fp32_vs_int8): **{'PASS' if accuracy_pass else 'FAIL'}**",
-        f"- Promote INT8: **{'YES → models/stage2/best_int8.engine' if promoted else 'NO'}**",
+        f"- Promote INT8: **{'YES → ' + promoted_rel if promoted_rel else 'NO'}**",
         "",
     ]
     (reports / "stage2_gate5.md").write_text("\n".join(md) + "\n", encoding="utf-8")

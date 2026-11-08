@@ -1,218 +1,211 @@
-# YOLOv8 Face Detection: Two-Stage Lifecycle (FP32 & INT8)
+# INT8 Post-Training Quantization of YOLOv8n for Face Detection on Raspberry Pi 5
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Python: 3.11+](https://img.shields.io/badge/Python-3.11+-blue.svg)](https://www.python.org/)
-[![Framework: Ultralytics YOLOv8](https://img.shields.io/badge/YOLOv8-8.4.162-brightgreen.svg)](https://github.com/ultralytics/ultralytics)
-[![Runtime: ONNX Runtime](https://img.shields.io/badge/Runtime-ONNX_Runtime-orange.svg)](https://onnxruntime.ai/)
+**Author:** Bunleab · **Date:** November 2026 · **Repository:** `face_yolov`  
+**Setup & Execution Guide:** See [`docs/technical_report.md`](docs/technical_report.md) for environment setup and how to run every code file.
 
-A production-grade, scientifically rigorous machine learning pipeline for **single-class face detection** based on YOLOv8. The project implements a complete two-stage lifecycle governed by strict quality gates:
+## Abstract
 
-1. **Stage 1 (FP32 Training & Data Engineering):** Comprehensive dataset audit, perceptual duplicate removal (0 cross-split leakage), controlled resolution ablation (416px, 640px, 800px), and frozen baseline checkpoint selection.
-2. **Stage 2 (Quantization & Edge Export):** FP32 base reference profiling, train/val-only calibration, Conv-isolated Post-Training Quantization (PTQ) to INT8, multi-slice evaluation on test and OOD sets, and Gate 5 hardware latency/memory verification.
+We deploy a single-class YOLOv8n face detector (416×416) on a Raspberry Pi 5 (BCM2712, 4× Cortex-A76) with ONNX Runtime and Conv-only static INT8 PTQ (QDQ, MinMax, 300 calibration images). On a leakage-free test split (114 images), INT8 keeps mAP@0.5:0.95 at 0.6549 (FP32: 0.6541), shrinks the model 3.69× (11.60 → 3.14 MB), and cuts median end-to-end latency from 82.25 to 64.08 ms (1.28×; 12.2 → 15.6 FPS), peaking at 17.2 FPS with three threads. All runs were thermally throttled (`throttled=0xe0006`, up to 90.85 °C); a 1,000-run test shows a 1.67× gap that is partly confounded by heat carry-over. Power and CPU utilisation were not measured.
 
 ---
 
-## Architecture & Lifecycle Pipeline
+## 1. Introduction
 
-```
-Gate 0: Environment Verification (GPU, CUDA, PyTorch)
-   │
-   ▼
-Gate 1: Dataset Audit (40 cross-split duplicate clusters detected)
-   │
-   ▼
-Gate 2: Cluster-Aware Deduplication (Zero cross-split leakage, 80/10/10 split)
-   │
-   ▼
-Gate 3: Pipeline Smoke Test (S0 - Loss convergence & VRAM fit)
-   │
-   ▼
-Stage 1 FP32 Training & Benchmark (E0: 640px, E1: 416px, E2: 800px)
-   │
-   ▼
-Gate 4: Frozen Base Reference Selection (E1 @ 416px, mAP50-95: 0.6541)
-   │
-   ▼
-Gate 4.5: Stage 2 Preflight (Lock runtime, calibration manifest, OOD harness)
-   │
-   ▼
-Post-Training Quantization (PTQ INT8 with MinMax calibration)
-   │
-   ▼
-Gate 5: Hardware & Accuracy Gate (Latency <= 20ms, Zero accuracy drop)
-   │
-   ▼
-Production Model Promotion (best_int8.onnx)
-```
+YOLOv8n is the nano variant of the Ultralytics YOLOv8 family [1]: an anchor-free, single-stage detector (≈3.2 M parameters on COCO, ≈3.0 M for one class; ≈8.7 GFLOPs at 640²) with a convolution-dominated graph that exports cleanly to ONNX.
+
+The Raspberry Pi 5 has limited shared RAM (4/8 GB), no GPU/NPU path for ONNX Runtime, a thermal envelope that throttles the ARM clock near 85 °C without active cooling, and a tight power budget. INT8 quantization cuts weight storage 4× and replaces FP32 arithmetic with integer kernels (e.g., NEON `sdot`/`udot`) [3].
+
+**Objective:** quantify the accuracy–latency–size trade-off of INT8 PTQ for YOLOv8n on a Raspberry Pi 5.
 
 ---
 
-## Benchmark Results
+## 2. Methodology
 
-### 1. Stage 1 FP32 Model Selection (Frozen Test Split)
+### 2.1 Architecture
 
-| Run | Resolution | Peak VRAM | Inference (GPU) | Val mAP50-95 | Test mAP50 | Test mAP50-95 | Test Recall (@0.25) |
-|---|---|---|---|---|---|---|---|
-| **E0** | 640×640 | 0.858 GiB | 4.83 ms | 0.7430 | 0.9884 | 0.6377 | 0.9912 |
-| **E1 (Champion)** | **416×416** | **0.415 GiB** | **2.56 ms** | **0.7424** | **0.9950** | **0.6541** | **0.9825** |
-| **E2** | 800×800 | 1.308 GiB | 7.29 ms | 0.7303 | 0.9946 | 0.6668 | 0.9825 |
+YOLOv8n initialised from COCO weights and fine-tuned for one class (`Face`) at 416×416. Figure 1 shows the backbone (CBS/C2f/SPPF), PAN neck (upsample/concat/C2f), and three decoupled heads. The figure is drawn for 640×640 input (80/40/20 grids); at our 416×416 input the grids are 52×52, 26×26, and 13×13.
 
-> **Key Finding:** The source dataset is natively 416×416. Upscaling to 640px or 800px merely interpolated pixels without providing additional spatial information, while doubling/tripling latency and memory. **E1 (416px)** was selected and frozen to `models/stage1/best.pt`.
+![Figure 1. YOLOv8 architecture](docs/figures/yolov8_architecture.jpg)
+
+*Figure 1. YOLOv8 backbone, neck, and head (640×640 input shown).*
+
+### 2.2 INT8 Post-Training Quantization
+
+Figure 2 shows the static PTQ flow: FP32 ONNX → graph optimisation → preprocessing of calibration data → calibration → quantization → INT8 ONNX.
+
+![Figure 2. Static PTQ pipeline](docs/figures/ptq_pipeline.png)
+
+*Figure 2. Static PTQ workflow. The original diagram is labelled "per-channel"; this study used per-tensor weights (`per_channel=False`).*
+
+**Affine quantization** [3, 4]. For range $[\alpha_{\min},\alpha_{\max}]$ and integer range $[q_{\min},q_{\max}]$:
+
+$$
+q=\operatorname{clip}\!\left(\left\lfloor \tfrac{x}{s}\right\rceil+z,\,q_{\min},\,q_{\max}\right),\quad
+\hat{x}=s\,(q-z),\quad
+s=\frac{\alpha_{\max}-\alpha_{\min}}{q_{\max}-q_{\min}},\quad
+z=\operatorname{clip}\!\left(\left\lfloor q_{\min}-\tfrac{\alpha_{\min}}{s}\right\rceil,q_{\min},q_{\max}\right)
+$$
+
+Weights are symmetric ($z_w=0$, $s_w=\max|w|/127$).
+
+**MinMax calibration** over the calibration set $\mathcal{C}$ ($|\mathcal{C}|=300$):
+
+$$
+\alpha_{\min}=\min_{x\in\mathcal{C}}\min(x),\qquad \alpha_{\max}=\max_{x\in\mathcal{C}}\max(x)
+$$
+
+**Error.** Inside the range $|x-\hat{x}|\le s/2$ and, for uniform rounding error, $\mathbb{E}[(x-\hat{x})^2]=s^2/12$; outliers widen the range and enlarge $s$.
+
+**Integer convolution.** With INT32 accumulator $A_j=\sum_k (q_{x,k}-z_x)\,q_{w,jk}$:
+
+$$
+y_j\approx s_x s_w A_j,\qquad q_{y,j}=\operatorname{clip}\!\left(\lfloor M A_j\rceil+z_y,\,q_{\min},\,q_{\max}\right),\quad M=\frac{s_x s_w}{s_y}
+$$
+
+| Setting | Value |
+|---|---|
+| Framework | ONNX Runtime `quantize_static`, QDQ |
+| Calibration | MinMax, 300 images (seed 42; 186 train + 114 valid; 0 test/OOD) |
+| Quantized ops | `Conv` only; DFL/`Sub`/`Mul`/`Sigmoid`/`Concat` decode stays FP32 |
+| Precision | Weights `QInt8` (symmetric), activations `QUInt8`, per-tensor |
+
+Keeping the DFL decode in FP32 protects box localisation, because the Distribution Focal Loss head [2] takes expectations over softmax bins that are sensitive to quantization noise.
+
+### 2.3 Data, metrics, and setup
+
+- **Dataset:** Roboflow *Face-Detection v2*, 2,173 images (416×416). A dHash audit found 40 clusters leaking across splits; after cluster-aware deduplication: **907 train / 114 val / 114 test**, zero overlap, seed 42, 99.6 % large faces. Default Ultralytics online augmentation. Five OOD crowd images are used for stress testing only.
+- **Metrics:** mAP@0.5, mAP@0.5:0.95 $=\tfrac{1}{10}\sum_{t\in\{0.50,\dots,0.95\}}\mathrm{AP}_t$, precision, recall; latency (median, p95, p99), $\mathrm{FPS}=1000/L_{\text{ms}}$, speed-up $S=L_{\mathrm{FP32}}/L_{\mathrm{INT8}}$, model size, peak RSS, SoC temperature and throttle flags. **Not measured:** power and CPU utilisation.
+- **Hardware / software (Pi):** Raspberry Pi 5 Model B Rev 1.1, aarch64, Linux 6.18.60+rpt-rpi-2712, Python 3.13.5, ONNX Runtime 1.31.1 (`CPUExecutionProvider`, `ORT_ENABLE_ALL`), OpenCV 5.0.0, NumPy 2.5.4; no PyTorch. Training host: RTX 3050 Laptop, PyTorch 2.13.0, Ultralytics 8.4.162. Cooler and RAM size were not recorded.
+- **Reproducibility:** seed 42, `deterministic=True`, `amp=False`, batch 4, patience 20 (run E1, 47 epochs). Pi benchmark: 640×480 frames → letterbox 416, conf 0.25, IoU 0.45; sweep 1–4 threads (30 warm-up + 150 runs); endurance 4 threads (50 warm-up + 1,000 runs). Scripts: `scripts/quantize_ptq.py`, `pi/bench_pi.py`, `scripts/plot_pi_benchmarks.py`; data in `reports/pi_benchmark*.json`.
 
 ---
 
-### 2. Stage 2: INT8 Judged Against FP32 Reference
+## 3. Results
 
-Evaluation conducted on the identical frozen test split (114 images, 114 ground truth faces):
+### 3.1 Accuracy (frozen test split, 114 faces)
 
-| Metric | FP32 Reference (`best.pt`) | INT8 Model (`best_int8.onnx`) | Delta ($\Delta$) | Status |
+| Metric | FP32 | INT8 | Δ |
+|---|---|---|---|
+| mAP@0.5 | 0.9950 | 0.9893 | −0.0057 |
+| mAP@0.5:0.95 | 0.6541 | 0.6549 | +0.0008 |
+| Precision | 0.9993 | 0.9912 | −0.0081 |
+| Recall | 0.9825 | 0.9912 | +0.0087 |
+
+### 3.2 Raspberry Pi 5 latency
+
+| Metric | FP32 burst | INT8 burst | FP32 sustained | INT8 sustained |
 |---|---|---|---|---|
-| **mAP50** | `0.9950` | `0.9893` | -0.0057 | PASS |
-| **mAP50-95** | `0.6541` | `0.6549` | **+0.0008** | **PASS (Zero drop)** |
-| **Precision** | `0.9993` | `0.9912` | -0.0081 | PASS |
-| **Recall (@ conf=0.25)** | `0.9825` (112/114) | `0.9912` (113/114) | **+0.0087** | PASS |
-| **Large Face Recall** | `0.9823` (111/113) | `0.9912` (112/113) | +0.0089 | PASS |
-| **Medium Face Recall** | `1.0000` (1/1) | `1.0000` (1/1) | 0.0000 | PASS |
-| **Model Size** | **11.6 MB** | **3.3 MB** | **3.5× smaller** | PASS |
-| **Hardware Latency** | 2.56 ms (GPU) | 16.4 ms (CPU) | $\le 20.0\text{ ms}$ budget | **PASS (Gate 5)** |
+| Runs / threads | 150 / 4 | 150 / 4 | 1,000 / 4 | 1,000 / 4 |
+| Model size | 11.60 MB | 3.14 MB | — | — |
+| Inference median | 80.09 ms | 61.96 ms | 109.63 ms | 64.93 ms |
+| End-to-end median | 82.25 ms | 64.08 ms | 112.27 ms | 67.22 ms |
+| p95 / p99 | 86.53 / 114.04 ms | 67.09 / 73.30 ms | 114.44 / 133.66 ms | 70.24 / 83.17 ms |
+| Median FPS | 12.2 | 15.6 | 8.9 | 14.9 |
+| Temp start → end | 85.35 → 85.90 °C | 84.25 → 84.80 °C | 86.45 → 90.85 °C | 72.70 → 87.55 °C |
+
+INT8 stage breakdown (burst): preprocess 2.07 ms (3.2 %), inference 61.96 ms (96.7 %), postprocess 0.11 ms (0.2 %). Peak process RSS was 111–116 MB, a process-wide figure identical for both models.
+
+![Figure 3. Stage latency, size and RAM](reports/pi_stage_breakdown.png)
+
+*Figure 3. Stage latency, model compression, and RSS.*
+
+### 3.3 INT8 thread scaling (150 runs)
+
+| Threads | End-to-end median (ms) | p95 (ms) | FPS | Scaling | Temp start → end (°C) |
+|---|---|---|---|---|---|
+| 1 | 81.00 | 82.32 | 12.3 | 1.00× | 60.05 → 71.05 |
+| 2 | 60.84 | 61.70 | 16.4 | 1.33× | 70.50 → 79.30 |
+| 3 | 58.09 | 67.98 | **17.2** | 1.39× | 79.85 → 84.25 |
+| 4 | 64.08 | 67.09 | 15.6 | 1.26× | 84.25 → 84.80 |
+
+![Figure 4. Thread scaling and temperature](reports/pi_thread_scaling_thermal.png)
+
+*Figure 4. (a) Throughput and latency vs. threads; (b) SoC temperature vs. throttle thresholds.*
+
+![Figure 5. Burst vs. sustained](reports/pi_burst_vs_endurance.png)
+
+*Figure 5. (a) p50/p95/p99 latency; (b) throughput and end temperature (FP32 ran second in the 1,000-run test).*
+
+**Highlights.** Best Pi throughput: 17.2 FPS (INT8, 3 threads). Largest accuracy change: −0.0057 mAP@0.5 and −0.0081 precision (mAP@0.5:0.95 unchanged). Weight storage saved: 8.46 MB. On the x86_64 reference (i5-12450H) INT8 is 1.32× faster (12.94 → 9.78 ms).
 
 ---
 
-## Repository Structure
+## 4. Experimental Setup and Deployment Demonstration
 
-```
-├── calibration/
-│   └── images.json                     # 300-image calibration manifest (Train/Val ONLY)
-├── configs/
-│   ├── face_v2_dedup.yaml              # Deduplicated YOLOv8 dataset definition
-│   ├── ood_eval.yaml                   # Out-of-distribution evaluation definition
-│   ├── stage2.json                     # Active Stage 2 deployment configuration
-│   └── stage2.template.json            # Template for deployment & target specs
-├── data/
-│   └── ood/                            # Out-of-distribution test suite & annotations
-├── docs/
-│   ├── technical_report.md             # Full research & engineering technical report
-│   ├── pi_benchmark_guide.md           # Step-by-step Raspberry Pi 5 benchmarking guide
-│   ├── stage1_architecture.md          # Stage 1 FP32 training & audit specification
-│   └── stage2_architecture.md          # Stage 2 INT8 PTQ & hardware gate specification
-├── exports/
-│   └── stage2/onnxruntime/             # Exported FP32 ONNX model & metadata
-├── models/
-│   ├── stage1/
-│   │   ├── best.pt                     # [Stage 1 Winner] Frozen FP32 model checkpoint
-│   │   ├── best.sha256                 # Cryptographic verification checksum
-│   │   ├── best_info.json              # Selection criteria & benchmark metrics
-│   │   └── best_args.yaml              # Training hyperparameter manifest
-│   └── stage2/
-│       ├── best_int8.onnx              # [Stage 2 Winner] Production INT8 quantized model
-│       ├── best_int8.onnx.sha256       # Production model checksum
-│       └── int8_info.json              # Quantization & calibrator metadata
-├── pi/                                 # Standalone Raspberry Pi 5 edge deployment (no PyTorch)
-│   ├── best_int8.onnx                  # Bundled INT8 ONNX model for self-contained deployment
-│   ├── face_detector.py                # Pure NumPy NMS, letterboxing & ONNX Runtime CPU engine
-│   ├── detect_webcam.py                # Live HDMI / headless webcam detection CLI
-│   ├── app_web.py                      # Flask MJPEG real-time web stream & telemetry dashboard
-│   ├── bench_pi.py                     # Automated FP32 vs INT8 & CPU thread scaling benchmark
-│   ├── requirements.txt                # Minimal Pi dependencies (numpy, opencv, onnxruntime, flask)
-│   └── README.md                       # Raspberry Pi 5 setup & usage guide
-├── reports/                            # Generated evidence for Gate 0 through Gate 5
-├── scripts/
-│   ├── audit_dataset.py                # Gate 1: Perceptual hash & leakage audit
-│   ├── make_dedup_split.py             # Gate 2: Cluster-aware deduplicated splitting
-│   ├── train_stage1.py                 # Reproducible FP32 model training
-│   ├── evaluate.py                     # Multi-metric evaluation on frozen splits
-│   ├── stage1_summary.py               # Automated model selector & report generator
-│   ├── stage2_preflight.py             # Gate 4.5: Stage 2 prerequisite validator
-│   ├── make_calibration_manifest.py    # Builds train/val-only calibration manifest
-│   ├── export_stage2.py                # Exports best.pt to optimized ONNX
-│   ├── quantize_ptq.py                 # Post-training INT8 quantization engine
-│   ├── evaluate_stage2.py              # Evaluates FP32 vs INT8 on test & OOD splits
-│   ├── bench_target.py                 # Gate 5: Hardware latency & memory benchmark
-│   └── stage2_summary.py               # Generates final Stage 2 summary report
-├── splits/                             # Frozen image split manifests (train/val/test)
-├── tests/
-│   ├── test_bench_pi.py                # Edge benchmark & telemetry unit tests
-│   ├── test_detect_webcam.py           # CLI & camera source resolution unit tests
-│   ├── test_face_detector.py           # Letterbox, pure-NumPy NMS & coordinate scaling unit tests
-│   └── test_stage2_preflight.py        # Stage 2 preflight & calibration guard unit tests
-├── requirements.txt                    # Python package dependencies
-├── LICENSE                             # MIT License
-└── NOTICE                              # Dataset attribution & licensing notice
-```
+### 4.1 Training environment
+
+The model was fine-tuned on an NVIDIA GeForce RTX 3050 Laptop GPU (4 GB VRAM). Figure 6 is a monitor snapshot taken during the 640×640 baseline run (E0, epoch 82/100, ≈18.6 s/epoch; GPU ≈94 % utilised, ≈1.6 GiB VRAM, ≈86 °C, 28/35 W). The champion 416×416 run (E1) is not shown.
+
+![Figure 6. Training environment](docs/figures/training_environment.jpg)
+
+*Figure 6. YOLOv8n training monitor (RTX 3050 Laptop GPU, 4 GB VRAM), E0 baseline run.*
+
+### 4.2 Raspberry Pi 5 hardware
+
+Figure 7 shows the deployment board: a Raspberry Pi 5 with a USB webcam and a USB flash drive attached. No heatsink or fan is visible on the SoC in this photo, which is consistent with the temperatures in §3 (passive cooling); the cooler and RAM size were not otherwise recorded.
+
+![Figure 7. Raspberry Pi 5 deployment hardware](docs/figures/pi5_hardware_setup.jpg)
+
+*Figure 7. Raspberry Pi 5 with USB webcam.*
+
+### 4.3 Serving and live demonstration
+
+The quantized model is served by a Flask application (`pi/app_web.py`) that streams annotated frames to a browser and exposes telemetry at `/api/stats`. Figure 8 shows the server log during an SSH session: the browser polls `/api/stats` about once per second and every request returns HTTP 200. Figure 9 shows the web interface with live detection (confidence 0.25, NMS IoU 0.45).
+
+![Figure 8. Flask API log via SSH](docs/figures/pi_flask_api_ssh.jpg)
+
+*Figure 8. Quantized YOLOv8n on Raspberry Pi 5: Flask `/api/stats` log over SSH.*
+
+![Figure 9. Real-time face detection web interface](docs/figures/pi5_web_demo.gif)
+
+*Figure 9. Live web interface demonstration on Raspberry Pi 5 (41-frame animated capture showing real-time 10.3 FPS stream and 92.3 ms inference latency).*
+
+**Note.** The 10.3 FPS / 92.3 ms in Figure 9 is a single frame from the live pipeline (camera capture, JPEG streaming, and telemetry running concurrently; thread setting not recorded). It is not comparable to the offline benchmark in §3 (15.6 FPS, 64.08 ms end-to-end), which cycles stored frames without camera or streaming overhead.
 
 ---
 
-## Quickstart
+## 5. Discussion
 
-### 1. Installation
+**Trade-offs.** Accuracy cost is at most 0.81 pt (mAP@0.5:0.95 unchanged), size falls 3.69× and burst latency 1.28×. With 114 faces one detection moves recall by 0.88 pt, so sub-1-pt differences are within noise. The size ratio is below 4× because the head stays FP32 and the file stores scales and QDQ metadata. The measured inference speed-up $S_{\text{inf}}=80.09/61.96=1.29$ implies, via Amdahl's law $S_{\text{inf}}=1/\big((1-f_q)+f_q/S_q\big)$,
 
-```bash
-git clone https://github.com/<your-username>/face_yolov.git
-cd face_yolov
-pip install -r requirements.txt
-```
+$$
+f_q\left(1-\tfrac{1}{S_q}\right)=1-\tfrac{1}{S_{\text{inf}}}\approx 0.226,
+$$
 
-### 2. Verify Preflight & Tests
+so only part of inference time benefits from integer kernels (FP32 head, QDQ boundary operators, non-Conv ops). This is inferred from end-to-end timings; no per-operator profile was collected.
 
-```bash
-python -m unittest discover tests
-python scripts/stage2_preflight.py
-```
+**Thermal throttling.** `throttled=0xe0006` means: bit 1 frequency capped, bit 2 currently throttled, bits 17–19 capping, throttling, and the soft temperature limit have occurred; bit 0 (under-voltage) is clear. All results are therefore throttled-state results. Two confounds apply: (i) the 4-thread run began at 84.25 °C after the 3-thread run, so heat carry-over, not only thread contention, may explain its drop; (ii) in the 1,000-run test INT8 ran first and FP32 started pre-heated (86.45 °C), inflating the 1.67× gap. The burst 1.28× is the cleaner estimate; a cooled, order-randomised repeat is needed.
 
-### 3. Edge Deployment on Raspberry Pi 5 (`pi/`)
+**Edge scenarios.** Smart cameras, kiosks, and attendance at 0.3–2.5 m: suitable (15–17 FPS). Robotics: marginal (58–67 ms). Surveillance/crowds: unsuitable as trained (OOD mAP ≈ 0 for both models). Fanless enclosures: use three threads or add cooling.
 
-Run lightweight CPU inference via ONNX Runtime without installing PyTorch or Ultralytics (see [`pi/README.md`](pi/README.md)):
-
-```bash
-# Live webcam detection (HDMI display or headless frame capture)
-python pi/detect_webcam.py --camera 0
-
-# Real-time MJPEG web streaming dashboard (view on any browser at http://<ip>:5000)
-python pi/app_web.py --camera 0 --port 5000
-
-# Run hardware benchmark suite (FP32 vs INT8, stage breakdown, 1-4 CPU threads, thermals)
-python pi/bench_pi.py --warmup 30 --runs 150
-```
-
-See [`docs/pi_benchmark_guide.md`](docs/pi_benchmark_guide.md) for the step-by-step Raspberry Pi 5 measurement protocol and [`docs/technical_report.md`](docs/technical_report.md) for the full research report.
-
-### 4. Run Inference with Ultralytics Python API
-
-```python
-from ultralytics import YOLO
-
-# Load the production INT8 model
-model = YOLO("models/stage2/best_int8.onnx", task="detect")
-
-# Run inference
-results = model.predict(source="data/ood/images/ood_01_small_faces.jpg", imgsz=416, conf=0.25)
-print(f"Detected {len(results[0].boxes)} faces.")
-```
-
-### 5. Reproduce the Full Two-Stage Lifecycle
-
-#### Stage 1: Data Audit, Split & Training
-```bash
-python scripts/environment_report.py
-python scripts/audit_dataset.py
-python scripts/make_dedup_split.py
-python scripts/train_stage1.py --name E1 --imgsz 416 --batch 4 --epochs 100
-python scripts/stage1_summary.py
-```
-
-#### Stage 2: Quantization, Evaluation & Promotion
-```bash
-python scripts/make_calibration_manifest.py --count 300
-python scripts/export_stage2.py
-python scripts/quantize_ptq.py
-python scripts/evaluate_stage2.py
-python scripts/bench_target.py
-python scripts/stage2_summary.py
-```
+**Layer-level notes.** Only `Conv` was quantized and the decode path kept in FP32 by design; no per-layer sensitivity sweep, per-channel weights, or FP16 fallback was used, so specific sensitive layers remain unidentified.
 
 ---
 
-## License & Attribution
+## 6. Conclusion
 
-- **Code:** Licensed under the [MIT License](LICENSE).
-- **Dataset Attribution:** See [NOTICE](NOTICE) for Roboflow Face-Detection v2 dataset attribution (licensed under CC BY 4.0).
+- INT8 PTQ preserved accuracy (mAP@0.5:0.95 0.6549 vs. 0.6541; worst drop −0.0057 mAP@0.5).
+- The model shrank 3.69× (11.60 → 3.14 MB).
+- On the Pi 5, INT8 was 1.28× faster in burst (15.6 vs. 12.2 FPS), peaking at 17.2 FPS with three threads; the sustained 1.67× is directional only.
+- The pipeline is compute-bound (96.7 % inference) with ≈111–116 MB RSS.
+- Thermals dominate: every run was throttled, so cooling and thread count matter as much as precision.
+
+**Recommendation.** Use INT8 PTQ for close-range face detection on the Pi 5 when 15–17 FPS suffices and the board runs three threads or active cooling. It is not validated for small/crowded faces or >25 FPS requirements.
+
+---
+
+## 7. Limitations and Future Work
+
+**Limitations.** One architecture, one class, near-homogeneous data (99.6 % large faces, 114 test images); 300 calibration images with MinMax only; no QAT, pruning, or FP16 baseline; power and CPU utilisation unmeasured; sequential benchmarking in a throttled state with unrecorded ambient temperature, cooler, and RAM size; benchmark frames contain no detections (NMS cost is a lower bound); no on-device accuracy re-evaluation.
+
+**Future work.** (1) Thermally controlled, interleaved, repeated benchmarks with confidence intervals; (2) power metering and per-operator profiling; (3) QAT, pruning + PTQ, per-channel weights, Entropy/Percentile calibration, layer-wise sensitivity; (4) multi-objective search over accuracy, latency, energy, and temperature; (5) multi-scale data (WIDER FACE), other YOLO sizes, other Pi variants, and accelerators (AI HAT+ / Hailo-8L).
+
+---
+
+## References
+
+[1] G. Jocher, A. Chaurasia, J. Qiu, "Ultralytics YOLOv8," 2023. https://github.com/ultralytics/ultralytics  
+[2] X. Li *et al.*, "Generalized Focal Loss," *NeurIPS*, 2020.  
+[3] B. Jacob *et al.*, "Quantization and Training of Neural Networks for Efficient Integer-Arithmetic-Only Inference," *CVPR*, 2018.  
+[4] M. Nagel *et al.*, "A White Paper on Neural Network Quantization," arXiv:2106.08295, 2021.  
+[5] ONNX Runtime, "Quantize ONNX models." https://onnxruntime.ai/docs/performance/model-optimizations/quantization.html

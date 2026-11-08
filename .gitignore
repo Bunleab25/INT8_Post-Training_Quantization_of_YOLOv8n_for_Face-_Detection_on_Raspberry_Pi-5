@@ -51,3 +51,9 @@ yolov8n.pt
 reports/dataset_manifest.csv
 reports/source_clusters.json
 reports/leakage_clusters.csv
+
+# Unreferenced raw screencast exports
+docs/figures/Screencast*
+
+# Implementation tasks tracking
+tasks/

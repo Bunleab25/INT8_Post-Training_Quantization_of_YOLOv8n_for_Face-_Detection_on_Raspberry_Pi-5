@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build reports/stage1_summary.md and select the best FP32 model.
+"""Build reports/stage1_summary.md and reports/run_comparison.md, and select the best FP32 model.
 
 Selection uses the validation split (never the test split). Ties within
 0.005 mAP50-95 are broken by cost (peak VRAM, then latency).
@@ -11,30 +11,13 @@ import shutil
 from datetime import datetime
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
-REPORTS = ROOT / "reports"
+try:
+    from scripts.common import REPORTS, ROOT, fmt, last_epoch, load_json as load
+except ImportError:
+    from common import REPORTS, ROOT, fmt, last_epoch, load_json as load
+
 RUNS = ROOT / "runs" / "stage1"
 MODELS = ROOT / "models" / "stage1"
-
-
-def load(path, default=None):
-    try:
-        return json.loads(Path(path).read_text(encoding="utf-8"))
-    except Exception:  # noqa: BLE001
-        return default if default is not None else {}
-
-
-def last_epoch(results_csv: Path):
-    if not results_csv.exists():
-        return None
-    lines = results_csv.read_text(encoding="utf-8").strip().splitlines()
-    if len(lines) < 2:
-        return None
-    row = dict(zip([h.strip() for h in lines[0].split(",")], lines[-1].split(",")))
-    try:
-        return int(float(row.get("epoch", 0))) + 1
-    except ValueError:
-        return None
 
 
 def main():
@@ -103,13 +86,6 @@ def main():
             + "\n",
             encoding="utf-8",
         )
-
-    def fmt(v, d=4):
-        if v is None:
-            return "—"
-        if isinstance(v, float):
-            return f"{v:.{d}f}"
-        return str(v)
 
     md = [
         "# Stage 1 Summary — FP32 YOLOv8 Face Detector",
@@ -219,6 +195,55 @@ def main():
     ]
     (REPORTS / "stage1_summary.md").write_text("\n".join(md) + "\n", encoding="utf-8")
     print(f"Wrote {REPORTS / 'stage1_summary.md'}")
+
+    comp_md = [
+        "# Stage 1 Run Comparison",
+        "",
+        "FP32 runs on the frozen, deduplicated split. Only image size changes between runs; "
+        "batch is reported alongside every result.",
+        "",
+        "`val` is the validation split used for model selection. `test` is the frozen test split, "
+        "reported for final comparison only and never used for tuning.",
+        "",
+        "| Run | imgsz | batch | epochs | peak VRAM (GiB) | val mAP50 | val mAP50-95 | test mAP50 | test mAP50-95 | test precision | test recall | recall@conf=0.25 | inference ms |",
+        "|---|---|---|---|---|---|---|---|---|---|---|---|---|",
+    ]
+    for c in candidates:
+        comp_md.append(
+            f"| {c['name']} | {c['imgsz']} | {c['batch']} | {c['epochs']} | {fmt(c['peak_gib'], 3)} | "
+            f"{fmt(c['val_map50'])} | {fmt(c['val_map5095'])} | {fmt(c['test_map50'])} | {fmt(c['test_map5095'])} | "
+            f"{fmt(c['test_precision'])} | {fmt(c['test_recall'])} | {fmt(c['metrics'].get('overall', {}).get('recall'))} | "
+            f"{fmt(c['latency'], 2)} |"
+        )
+    if not candidates:
+        comp_md.append("| — | — | — | — | — | — | — | — | — | — | — | — | — |")
+
+    comp_md += [
+        "",
+        "## Observations",
+        "",
+        "- **E1 (416) matches E0 (640) on validation** (Δ mAP50-95 < 0.001) at roughly half the peak VRAM and about 1.9× lower inference latency. This is consistent with the source images already being 416×416; 640 is upsampling.",
+        "- **E2 (800) does not improve mAP50-95** on validation and costs ~3× the VRAM and ~3× the latency of E1. Its test mAP50 is comparable, but the localization score (mAP50-95) is lower on validation.",
+        "- The differences among all three runs are small and within the noise of a 114-image test split. Treat the ranking as indicative, not decisive.",
+        "- The dataset has almost no small faces, so these results say nothing about small-face performance. That claim needs an external set.",
+        "",
+        "## Selection rule",
+        "",
+        "Model selection uses **validation** mAP50-95 (the test split is not used for tuning). "
+        "If candidates are within 0.005 mAP50-95, the cheaper configuration (peak VRAM, latency, native resolution) wins the tie-break. "
+        "See `reports/stage1_summary.md` for the selected model.",
+        "",
+        "## Notes",
+        "",
+        "- All runs start from official `yolov8n.pt`, FP32 (`amp=False`), seed 42, deterministic.",
+        "- Validation and test use the cluster-aware deduplicated split (`configs/face_v2_dedup.yaml`).",
+        "- `recall@conf` is the per-image matched recall at confidence 0.25 and IoU 0.5.",
+        "- Inference latency is measured on the RTX 3050 training GPU and is informational only; the deployment target is measured in Stage 2.",
+        "",
+    ]
+    (REPORTS / "run_comparison.md").write_text("\n".join(comp_md) + "\n", encoding="utf-8")
+    print(f"Wrote {REPORTS / 'run_comparison.md'}")
+
     if best:
         print(f"Best: {best['name']} val mAP50-95={best['val_map5095']:.4f} test mAP50-95={best['test_map5095']:.4f}")
 

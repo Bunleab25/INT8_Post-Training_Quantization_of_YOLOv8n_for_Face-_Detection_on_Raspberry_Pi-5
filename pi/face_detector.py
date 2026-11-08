@@ -6,10 +6,48 @@ or Ultralytics dependencies.
 from __future__ import annotations
 
 import time
+from pathlib import Path
 
 import cv2
 import numpy as np
 import onnxruntime as ort
+
+
+def resolve_default_model_path() -> str:
+    """Return path to bundled `pi/best_int8.onnx` or fallback to `models/stage2/best_int8.onnx`."""
+    script_dir = Path(__file__).resolve().parent
+    local_model = script_dir / "best_int8.onnx"
+    repo_model = script_dir.parent / "models" / "stage2" / "best_int8.onnx"
+    return str(local_model if local_model.exists() else repo_model)
+
+
+def resolve_camera_source(source_str: str | int) -> int | str:
+    """Parse camera argument: converts digit strings to integer indices."""
+    if isinstance(source_str, str) and source_str.isdigit():
+        return int(source_str)
+    return source_str
+
+
+def update_ema_fps(prev_fps: float, dt: float, alpha: float = 0.9) -> float:
+    """Compute exponentially smoothed FPS from frame delta `dt` seconds."""
+    inst_fps = 1.0 / dt if dt > 0 else 0.0
+    return (alpha * prev_fps + (1.0 - alpha) * inst_fps) if prev_fps > 0 else inst_fps
+
+
+def draw_status_banner(
+    frame: np.ndarray,
+    text: str,
+    org: tuple[int, int] = (12, 28),
+    font_scale: float = 0.7,
+) -> np.ndarray:
+    """Draw outlined high-contrast yellow HUD telemetry banner on `frame` in-place."""
+    cv2.putText(
+        frame, text, org, cv2.FONT_HERSHEY_SIMPLEX, font_scale, (0, 0, 0), 3, cv2.LINE_AA
+    )
+    cv2.putText(
+        frame, text, org, cv2.FONT_HERSHEY_SIMPLEX, font_scale, (0, 255, 255), 2, cv2.LINE_AA
+    )
+    return frame
 
 
 def letterbox(

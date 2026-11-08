@@ -1,0 +1,45 @@
+name: Report
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "docs/yolov8n_int8_ptq_pi5_report.md"
+      - "docs/figures/**"
+      - "reports/pi_benchmark*.json"
+      - "scripts/plot_pi_benchmarks.py"
+      - "scripts/check_report.py"
+      - ".github/workflows/report.yml"
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build-report:
+    name: Regenerate plots and validate report
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install plotting dependencies
+        run: pip install matplotlib numpy
+
+      - name: Regenerate benchmark plots from JSON
+        run: python scripts/plot_pi_benchmarks.py
+
+      - name: Validate report (images, figure numbering, math delimiters)
+        run: python scripts/check_report.py
+
+      - name: Upload report and figures
+        uses: actions/upload-artifact@v4
+        with:
+          name: pi5-research-report
+          path: |
+            docs/yolov8n_int8_ptq_pi5_report.md
+            docs/figures/
+            reports/pi_*.png

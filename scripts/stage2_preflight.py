@@ -3,11 +3,15 @@
 from __future__ import annotations
 
 import argparse
-import hashlib
 import importlib.util
 import json
 from pathlib import Path
 from typing import Any
+
+try:
+    from scripts.common import IMAGE_SUFFIXES, load_expected_checkpoint_hash, sha256_file
+except ImportError:
+    from common import IMAGE_SUFFIXES, load_expected_checkpoint_hash, sha256_file
 
 
 RUNTIME_MODULES = {
@@ -18,38 +22,29 @@ RUNTIME_MODULES = {
 }
 ALLOWED_RUNTIMES = set(RUNTIME_MODULES)
 ALLOWED_LATENCY_DEFINITIONS = {"model_only", "e2e"}
-IMAGE_SUFFIXES = {".jpg", ".jpeg", ".png", ".bmp", ".webp"}
 
 
-def sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as stream:
-        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
-
-
-def load_expected_checkpoint_hash(path: Path, checkpoint: Path) -> str | None:
-    if not path.is_file():
-        return None
-    for line in path.read_text(encoding="utf-8").splitlines():
-        fields = line.split()
-        if len(fields) == 2 and fields[1].lstrip("*") == checkpoint.as_posix():
-            return fields[0].lower()
-    return None
-
-
-def validate_calibration_manifest(path: Path, root: Path) -> list[str]:
+def parse_calibration_manifest(
+    source: Path | dict[str, Any],
+    root: Path,
+) -> tuple[list[Path], list[str]]:
+    """Validate calibration manifest entries and return (resolved_paths, problems)."""
     problems: list[str] = []
-    if not path.is_file():
-        return [f"Calibration manifest does not exist: {path}"]
-    try:
-        manifest: Any = json.loads(path.read_text(encoding="utf-8"))
-    except json.JSONDecodeError as exc:
-        return [f"Calibration manifest is not valid JSON: {exc}"]
+    resolved_images: list[Path] = []
+
+    if isinstance(source, Path):
+        if not source.is_file():
+            return [], [f"Calibration manifest does not exist: {source}"]
+        try:
+            manifest: Any = json.loads(source.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as exc:
+            return [], [f"Calibration manifest is not valid JSON: {exc}"]
+    else:
+        manifest = source
+
     images = manifest.get("images") if isinstance(manifest, dict) else None
     if not isinstance(images, list) or not images:
-        return ["Calibration manifest must contain a non-empty 'images' list."]
+        return [], ["Calibration manifest must contain a non-empty 'images' list."]
 
     test_root = (root / "datasets/face_v2_dedup/test").resolve()
     for index, item in enumerate(images):
@@ -72,7 +67,21 @@ def validate_calibration_manifest(path: Path, root: Path) -> list[str]:
             problems.append(f"{prefix} image does not exist: {image}")
         if image.is_relative_to(test_root):
             problems.append(f"{prefix} points into the frozen test split: {image}")
+        resolved_images.append(image)
+    return resolved_images, problems
+
+
+def validate_calibration_manifest(path: Path, root: Path) -> list[str]:
+    _, problems = parse_calibration_manifest(path, root)
     return problems
+
+
+def resolve_calibration_images(source: Path | dict[str, Any], root: Path) -> list[Path]:
+    """Return validated train/valid calibration image paths or raise ValueError."""
+    images, problems = parse_calibration_manifest(source, root)
+    if problems:
+        raise ValueError("; ".join(problems))
+    return images
 
 
 def _positive_int(config: dict[str, Any], key: str, blockers: list[str]) -> None:

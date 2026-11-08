@@ -15,7 +15,6 @@ from __future__ import annotations
 import argparse
 import csv
 import json
-import re
 from collections import Counter, defaultdict
 from datetime import datetime
 from pathlib import Path
@@ -23,13 +22,12 @@ from pathlib import Path
 import numpy as np
 from PIL import Image
 
+try:
+    from scripts.common import sha256_file, source_name
+except ImportError:
+    from common import sha256_file, source_name
+
 SPLITS = ("train", "valid", "test")
-RF_RE = re.compile(r"^(?P<source>.*)\.rf\.[0-9a-f]+\.(?P<ext>[A-Za-z0-9]+)$")
-
-
-def source_name(path: Path) -> str:
-    m = RF_RE.match(path.name)
-    return m.group("source") if m else path.stem
 
 
 def label_path(image_path: Path, dataset: Path) -> Path:
@@ -145,7 +143,7 @@ def main():
                 corrupt.append((str(image_path), str(exc)))
                 continue
 
-            sha = __import__("hashlib").sha256(image_path.read_bytes()).hexdigest()
+            sha = sha256_file(image_path)
             dh = dhash(image_path)
             boxes, bad = read_boxes(label_path(image_path, dataset))
             if not boxes:

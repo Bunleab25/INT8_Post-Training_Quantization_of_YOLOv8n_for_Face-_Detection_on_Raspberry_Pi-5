@@ -18,5 +18,5 @@ Generated: 2026-11-07T19:28:23
 - Memory limit: ≤ **3.5 GiB** → **PASS**
 - Gate 5: **PASS**
 - Accuracy gate (from stage2_fp32_vs_int8): **PASS**
-- Promote INT8: **YES → models/stage2/best_int8.engine**
+- Promote INT8: **YES → models/stage2/best_int8.onnx**
 

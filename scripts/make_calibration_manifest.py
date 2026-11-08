@@ -17,17 +17,14 @@ from collections import defaultdict
 from datetime import datetime
 from pathlib import Path
 
+try:
+    from scripts.common import IMAGE_SUFFIXES, load_json, source_name as source_key
+    from scripts.eval_core import size_bucket
+except ImportError:
+    from common import IMAGE_SUFFIXES, load_json, source_name as source_key
+    from eval_core import size_bucket
 
-IMAGE_SUFFIXES = {".jpg", ".jpeg", ".png", ".bmp", ".webp"}
 SPLITS = ("train", "valid")
-
-
-def size_bucket(area_px: float) -> str:
-    if area_px < 32 * 32:
-        return "small"
-    if area_px < 96 * 96:
-        return "medium"
-    return "large"
 
 
 def max_face_area(label_file: Path, width: int = 416, height: int = 416) -> float:
@@ -41,14 +38,6 @@ def max_face_area(label_file: Path, width: int = 416, height: int = 416) -> floa
         _, _, _, w, h = map(float, parts)
         areas.append((w * width) * (h * height))
     return max(areas) if areas else 0.0
-
-
-def source_key(path: Path) -> str:
-    name = path.stem
-    marker = ".rf."
-    if marker in name:
-        return name.split(marker, 1)[0]
-    return name
 
 
 def collect_candidates(dataset: Path) -> list[dict]:
@@ -146,12 +135,9 @@ def main() -> int:
     config_path = root / args.config
     count = args.count
     if count is None and config_path.is_file():
-        try:
-            config = json.loads(config_path.read_text(encoding="utf-8"))
-            if isinstance(config.get("calibration_count"), int) and config["calibration_count"] > 0:
-                count = config["calibration_count"]
-        except json.JSONDecodeError:
-            pass
+        config = load_json(config_path)
+        if isinstance(config.get("calibration_count"), int) and config["calibration_count"] > 0:
+            count = config["calibration_count"]
     if count is None:
         count = 300
 

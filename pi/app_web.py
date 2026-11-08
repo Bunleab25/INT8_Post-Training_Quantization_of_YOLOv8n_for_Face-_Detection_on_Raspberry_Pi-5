@@ -27,9 +27,23 @@ from flask import Flask, Response, jsonify, render_template_string, request
 
 # Support running directly or as a package
 try:
-    from pi.face_detector import FaceDetector, draw_detections
+    from pi.face_detector import (
+        FaceDetector,
+        draw_detections,
+        draw_status_banner,
+        resolve_camera_source,
+        resolve_default_model_path,
+        update_ema_fps,
+    )
 except ImportError:
-    from face_detector import FaceDetector, draw_detections
+    from face_detector import (
+        FaceDetector,
+        draw_detections,
+        draw_status_banner,
+        resolve_camera_source,
+        resolve_default_model_path,
+        update_ema_fps,
+    )
 
 app = Flask(__name__)
 
@@ -110,36 +124,14 @@ class CameraStream:
             # Draw bounding boxes
             draw_detections(frame, detections)
 
-            # Compute smoothed FPS
+            # Compute smoothed FPS and overlay stats badge
             now = time.perf_counter()
             dt = now - prev_time
             prev_time = now
-            inst_fps = 1.0 / dt if dt > 0 else 0.0
-            fps_smooth = (0.9 * fps_smooth + 0.1 * inst_fps) if fps_smooth > 0 else inst_fps
-
-            # Overlay stats badge
+            fps_smooth = update_ema_fps(fps_smooth, dt)
             num_faces = len(detections)
             overlay_text = f"FPS: {fps_smooth:.1f} | Faces: {num_faces} | {infer_ms:.1f}ms"
-            cv2.putText(
-                frame,
-                overlay_text,
-                (12, 28),
-                cv2.FONT_HERSHEY_SIMPLEX,
-                0.7,
-                (0, 0, 0),
-                3,
-                cv2.LINE_AA,
-            )
-            cv2.putText(
-                frame,
-                overlay_text,
-                (12, 28),
-                cv2.FONT_HERSHEY_SIMPLEX,
-                0.7,
-                (0, 255, 255),
-                2,
-                cv2.LINE_AA,
-            )
+            draw_status_banner(frame, overlay_text, org=(12, 28), font_scale=0.7)
 
             # Encode frame to JPEG
             ret, buffer = cv2.imencode(".jpg", frame, [cv2.IMWRITE_JPEG_QUALITY, 80])
@@ -425,10 +417,7 @@ def parse_args():
         description="Raspberry Pi 5 Web Streaming Face Detection",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
-    script_dir = Path(__file__).resolve().parent
-    local_model = script_dir / "best_int8.onnx"
-    repo_model = script_dir.parent / "models" / "stage2" / "best_int8.onnx"
-    default_model = str(local_model if local_model.exists() else repo_model)
+    default_model = resolve_default_model_path()
 
     parser.add_argument("--model", type=str, default=default_model, help="Path to INT8 ONNX model")
     parser.add_argument("--camera", default="0", help="Camera device index (e.g. 0, 1, 2)")
@@ -452,7 +441,7 @@ def main():
         print(f"[ERROR] Model file not found: {model_path}", file=sys.stderr)
         return 1
 
-    cam_id: int | str = int(args.camera) if str(args.camera).isdigit() else args.camera
+    cam_id: int | str = resolve_camera_source(args.camera)
 
     print("==================================================")
     print(" Raspberry Pi 5 Web Face Detection Stream")

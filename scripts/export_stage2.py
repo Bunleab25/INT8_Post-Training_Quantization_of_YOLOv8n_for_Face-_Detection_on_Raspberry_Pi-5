@@ -8,25 +8,15 @@ Example:
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import shutil
 from datetime import datetime
 from pathlib import Path
 
-
-def sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as stream:
-        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
-
-
-def load_config(path: Path) -> dict:
-    if not path.is_file():
-        return {}
-    return json.loads(path.read_text(encoding="utf-8"))
+try:
+    from scripts.common import load_expected_checkpoint_hash, load_json, sha256_file
+except ImportError:
+    from common import load_expected_checkpoint_hash, load_json, sha256_file
 
 
 def main() -> int:
@@ -39,9 +29,9 @@ def main() -> int:
 
     root = Path(__file__).resolve().parents[1]
     config_path = root / args.config
-    config = load_config(config_path)
+    config = load_json(config_path)
     imgsz = args.imgsz or int(config.get("imgsz") or 416)
-    runtime = config.get("runtime") or "tensorrt"
+    runtime = config.get("runtime") or "onnxruntime"
 
     weights = root / args.weights
     if not weights.is_file():
@@ -50,12 +40,7 @@ def main() -> int:
 
     expected_hash_file = root / "models/stage1/best.sha256"
     if expected_hash_file.is_file():
-        expected = None
-        for line in expected_hash_file.read_text(encoding="utf-8").splitlines():
-            fields = line.split()
-            if len(fields) == 2 and fields[1].lstrip("*") == "models/stage1/best.pt":
-                expected = fields[0].lower()
-                break
+        expected = load_expected_checkpoint_hash(expected_hash_file, "models/stage1/best.pt")
         actual = sha256_file(weights)
         if expected and actual != expected:
             print("ERROR: models/stage1/best.pt does not match best.sha256; refusing export.")

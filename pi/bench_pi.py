@@ -33,9 +33,9 @@ import numpy as np
 import onnxruntime as ort
 
 try:
-    from pi.face_detector import FaceDetector
+    from pi.face_detector import FaceDetector, resolve_default_model_path
 except ImportError:
-    from face_detector import FaceDetector
+    from face_detector import FaceDetector, resolve_default_model_path
 
 
 def parse_thread_list(raw: str) -> list[int]:
@@ -326,10 +326,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     script_dir = Path(__file__).resolve().parent
     repo_root = script_dir.parent
 
-    local_int8 = script_dir / "best_int8.onnx"
-    repo_int8 = repo_root / "models" / "stage2" / "best_int8.onnx"
-    default_int8 = str(local_int8 if local_int8.exists() else repo_int8)
-
+    default_int8 = resolve_default_model_path()
     default_fp32 = str(repo_root / "exports" / "stage2" / "onnxruntime" / "best.onnx")
     default_images = str(repo_root / "data" / "ood" / "images")
 

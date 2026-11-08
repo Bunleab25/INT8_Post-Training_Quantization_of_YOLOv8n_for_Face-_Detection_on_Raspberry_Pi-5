@@ -2,27 +2,13 @@
 """Build reports/stage2_summary.md from Stage 2 artefacts."""
 from __future__ import annotations
 
-import json
 from datetime import datetime
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
-REPORTS = ROOT / "reports"
-
-
-def load(path: Path, default=None):
-    try:
-        return json.loads(path.read_text(encoding="utf-8"))
-    except Exception:  # noqa: BLE001
-        return default if default is not None else {}
-
-
-def fmt(value, digits=4):
-    if value is None:
-        return "—"
-    if isinstance(value, float):
-        return f"{value:.{digits}f}"
-    return str(value)
+try:
+    from scripts.common import REPORTS, ROOT, fmt, load_json as load
+except ImportError:
+    from common import REPORTS, ROOT, fmt, load_json as load
 
 
 def status(flag: bool | None, pending: str = "PENDING") -> str:
@@ -40,8 +26,6 @@ def main() -> int:
     calib = load(ROOT / "calibration" / "images.json")
     runtime = config.get("runtime") or "onnxruntime"
     export_info = load(ROOT / "exports" / "stage2" / str(runtime) / "export_info.json")
-    if not export_info:
-        export_info = load(ROOT / "exports" / "stage2" / "tensorrt" / "export_info.json")
     quant_info = load(ROOT / "models" / "stage2" / "int8_info.json")
     compare = load(REPORTS / "stage2_fp32_vs_int8.json")
     gate5 = load(REPORTS / "stage2_gate5.json")
