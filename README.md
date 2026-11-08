@@ -40,10 +40,10 @@ Figure 2 shows the static PTQ flow: FP32 ONNX → graph optimisation → preproc
 **Affine quantization** [3, 4]. For range $[\alpha_{\min},\alpha_{\max}]$ and integer range $[q_{\min},q_{\max}]$:
 
 $$
-q = \text{clip}\left(\text{round}\left(\frac{x}{s}\right) + z, \; q_{\min}, \; q_{\max}\right), \quad
+q = \text{clip}\left(\text{round}\left(\frac{x}{s}\right) + z, q_{\min}, q_{\max}\right), \quad
 \hat{x} = s(q - z), \quad
 s = \frac{\alpha_{\max} - \alpha_{\min}}{q_{\max} - q_{\min}}, \quad
-z = \text{clip}\left(\text{round}\left(q_{\min} - \frac{\alpha_{\min}}{s}\right), \; q_{\min}, \; q_{\max}\right)
+z = \text{clip}\left(\text{round}\left(q_{\min} - \frac{\alpha_{\min}}{s}\right), q_{\min}, q_{\max}\right)
 $$
 
 Weights are symmetric ($z_w=0$, $s_w=\max|w|/127$).
@@ -59,7 +59,7 @@ $$
 **Integer convolution.** With INT32 accumulator $A_j = \sum_k (q_{x,k} - z_x) q_{w,jk}$:
 
 $$
-y_j \approx s_x s_w A_j, \qquad q_{y,j} = \text{clip}\left(\text{round}(M A_j) + z_y, \; q_{\min}, \; q_{\max}\right), \quad M = \frac{s_x s_w}{s_y}
+y_j \approx s_x s_w A_j, \qquad q_{y,j} = \text{clip}\left(\text{round}(M A_j) + z_y, q_{\min}, q_{\max}\right), \quad M = \frac{s_x s_w}{s_y}
 $$
 
 | Setting | Value |
@@ -74,7 +74,7 @@ Keeping the DFL decode in FP32 protects box localisation, because the Distributi
 ### 2.3 Data, metrics, and setup
 
 - **Dataset:** Roboflow *Face-Detection v2*, 2,173 images (416×416). A dHash audit found 40 clusters leaking across splits; after cluster-aware deduplication: **907 train / 114 val / 114 test**, zero overlap, seed 42, 99.6 % large faces. Default Ultralytics online augmentation. Five OOD crowd images are used for stress testing only.
-- **Metrics:** mAP@0.5, mAP@0.5:0.95 ($\frac{1}{10}\sum_{t=0.50}^{0.95}\mathrm{AP}_{t}$), precision, recall; latency (median, p95, p99), $\mathrm{FPS} = 1000 / L_{\text{ms}}$, speed-up $S = L_{\mathrm{FP32}} / L_{\mathrm{INT8}}$, model size, peak RSS, SoC temperature and throttle flags. **Not measured:** power and CPU utilisation.
+- **Metrics:** mAP@0.5, mAP@0.5:0.95 ($\frac{1}{10}\sum_{t=0.50}^{0.95}\mathrm{AP}(t)$), precision, recall; latency (median, p95, p99), $\mathrm{FPS} = 1000 / L_{\text{ms}}$, speed-up $S = L_{\mathrm{FP32}} / L_{\mathrm{INT8}}$, model size, peak RSS, SoC temperature and throttle flags. **Not measured:** power and CPU utilisation.
 - **Hardware / software (Pi):** Raspberry Pi 5 Model B Rev 1.1, aarch64, Linux 6.18.60+rpt-rpi-2712, Python 3.13.5, ONNX Runtime 1.31.1 (`CPUExecutionProvider`, `ORT_ENABLE_ALL`), OpenCV 5.0.0, NumPy 2.5.4; no PyTorch. Training host: RTX 3050 Laptop, PyTorch 2.13.0, Ultralytics 8.4.162. Cooler and RAM size were not recorded.
 - **Reproducibility:** seed 42, `deterministic=True`, `amp=False`, batch 4, patience 20 (run E1, 47 epochs). Pi benchmark: 640×480 frames → letterbox 416, conf 0.25, IoU 0.45; sweep 1–4 threads (30 warm-up + 150 runs); endurance 4 threads (50 warm-up + 1,000 runs). Scripts: `scripts/quantize_ptq.py`, `pi/bench_pi.py`, `scripts/plot_pi_benchmarks.py`; data in `reports/pi_benchmark*.json`.
 
