@@ -1,6 +1,6 @@
 # INT8 Post-Training Quantization of YOLOv8n for Face Detection on Raspberry Pi 5
 
-**Author:** Bunleab · **Date:** November 2026 · **Repository:** `face_yolov`  
+**Author:** Bunleab · **Date:** November 2026  
 **Setup & Execution Guide:** See [`docs/technical_report.md`](docs/technical_report.md) for environment setup and how to run every code file.
 
 ## Abstract
